@@ -1,0 +1,30 @@
+actua com un programador expert 
+vull fer un centre de videojocs retro a traves dels llenguatges js, css, html i com a base de dades utilitzaré el localstorage
+el funcionament d'aquest videojoc reto ha de fer el seguent:
+
+primer de tot entrarem a la pagina tinguem o no registrre i podrem visualitzar una galeria de videojocs.
+sense registrar podem veure la galeria i inclus entrar en alguna plantilla individual de videojocs pero no jugar hi
+sempre que anem a jugar un videojoc hem d'estar registrats
+
+l¡usuari ha de tenir un atribut de coins o monedes amb el qual si no tinc suficients monedes no podré jugar-
+
+quan em registri per primer cop tindre 100 monedes i cada joc tindra la seva llògica d'apostes, si no tinc suficients monedes no podre jugar
+
+necessito crear l'array principal d'aquest tipus de plataforma i poder fer tota la llogica que t'he expñicat.
+
+podries guiar-me pas a pas, sobre com ho podria fer ? si cal crear diferents formularis ves-me guiant pas a pas.
+
+tingues en compte la imatge de com havia pensat que fos el sistema
+
+respon-me de la forma més eficaç possible i tenint en compte tots els casos que t'he esmentat.
+
+
+
+
+
+
+
+
+
+ayudame a hacer una pagina de inicio de sesion para un centro de videojuegos en el que tengo que implementar un sistema de enlaces CDN 
+de bootstrap CSS I JS, tambien impementar el poder ver quantas monedas tienes en la cuenta y a que juego quieres jugar
