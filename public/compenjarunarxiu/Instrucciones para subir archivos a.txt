@@ -1,0 +1,13 @@
+Instrucciones para subir archivos a sourcetree
+git status
+para ver el estado
+
+git add .
+Para añadir el archivo que quieres subir
+
+git commit -am 'comentari'
+Para enviar el archivo con un comentario
+
+git merge
+Comapara los archivos
+
