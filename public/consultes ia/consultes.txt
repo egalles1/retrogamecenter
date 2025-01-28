@@ -5,3 +5,5 @@ Hola GPT, en el colegio estamos haciendo un proyecto, que estamos creando un pro
 
 Pol de la Viuda:
 Actua com un programador expert vull fer un joc per un centre de videojocs retro a traves dels llenguatges js, css, htmlel funcionament d'aquest videojoc reto ha de fer el seguent: Es un tres en ratlla, en el qual jugues contra una maquina, per jugar has d'apostar 20 monedes, i si guanyes, guanyes 100 moenedes podries guiar-me pas a pas, sobre com ho podria fer ? si cal crear diferents formularis ves-me guiant pas a pas. tingues en compte la imatge de com havia pensat que fos el sistemarespon-me de la forma més eficaç possible i tenint en compte tots els casos que t'he esmentat.
+
+Alejandro: Le he preguntado que me hiciese un ahogado, después le he pedido que añada monedas, después que apareciese una persona por cada vez que falles, que con cada partida ganes o pierdas monedas según tu apuesta, como me avía hecho mal los brazos y las piernas le he pedido que me las haga bien y en su sitio 
