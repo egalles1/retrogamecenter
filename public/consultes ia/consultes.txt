@@ -1,3 +1,4 @@
 Poseu en aquest document les consultes a la ia que voleu preguntar i les adaptarem per tal de tenir uns resultats més coherents
 
-jo marc gurrera li preguntare a la ia com poder optimitrzar la meva tasca per a diferents exploradors
+Alex Valls:
+Hola GPT, en el colegio estamos haciendo un proyecto, que estamos creando un proyecto de videojuegos, una central de juegos por asin decir, necesito que me ensenyes los passos, muy simples para que qualquiera pudiera hacerlo, yo ahora te dire los objetivos que tenemos o los passos que seguiremos, necesito que actues como un crack de la programacion y del diseño. Yo estoy creando el juego del ahorcado, necesito que me ayudes a crearlo, si no lo tienes claro, aqui tienes los passos: (Passos del Trello)
