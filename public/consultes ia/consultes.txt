@@ -1,6 +1,6 @@
 Poseu en aquest document les consultes a la ia que voleu preguntar i les adaptarem per tal de tenir uns resultats més coherents
 
-<<<<<<< Updated upstream
+
 Alex Valls:
 Hola GPT, en el colegio estamos haciendo un proyecto, que estamos creando un proyecto de videojuegos, una central de juegos por asin decir, necesito que me ensenyes los passos, muy simples para que qualquiera pudiera hacerlo, yo ahora te dire los objetivos que tenemos o los passos que seguiremos, necesito que actues como un crack de la programacion y del diseño. Yo estoy creando el juego del ahorcado, necesito que me ayudes a crearlo, si no lo tienes claro, aqui tienes los passos: (Passos del Trello)ç
 
@@ -8,8 +8,8 @@ Pol de la Viuda:
 Actua com un programador expert vull fer un joc per un centre de videojocs retro a traves dels llenguatges js, css, htmlel funcionament d'aquest videojoc reto ha de fer el seguent: Es un tres en ratlla, en el qual jugues contra una maquina, per jugar has d'apostar 20 monedes, i si guanyes, guanyes 100 moenedes podries guiar-me pas a pas, sobre com ho podria fer ? si cal crear diferents formularis ves-me guiant pas a pas. tingues en compte la imatge de com havia pensat que fos el sistemarespon-me de la forma més eficaç possible i tenint en compte tots els casos que t'he esmentat.
 
 Alejandro: programame el juego del ahorcado que cada vez que quieras jugar tengas que pagar dos monedas y cada vez que ganes te den el doble de la cantidad que te juegas que si el numero de monedas es superio a dos sea mas dificil progresiba mente todo esto en html, css, javascrit,hazmelo como si fuese una horca y cada letra fallada vaya apareciendo una persona primero la cabeza despues el torso , la mano despues la otra mano y lo mismo con la pirnas primero una y despues la otra ,las palabra que sean aleatorias pero mino palabral que seam de siete letra y maximo dos palabras de seis letras añadelo, implementa las palabras y señalame las para que las vea y aber la dificultat de esa palabra que tu has implementado
-=======
+
 jo marc gurrera li preguntare a la ia com poder optimitrzar la meva tasca per a diferents exploradors
 
 jo Jordi he Diseñado una pista dividida en carriles para cada camello. Usa imágenes o sprites para los camellos y jinetes. Considera dividir la pista en tramos para facilitar el seguimiento de los progresosen HTML.
->>>>>>> Stashed changes
+
