@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Piedra, Papel o Tijeras - Apuestas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    .game-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .choice-button {
+      padding: 15px 30px;
+      margin: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      border: 2px solid #333;
+      border-radius: 5px;
+      background-color: #f0f0f0;
+    }
+    .choice-button:hover {
+      background-color: #ddd;
+    }
+    .result, .balance, .bet, .score {
+      margin: 20px;
+    }
+    .balance {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .score {
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .buttons-container {
+      display: flex;
+      justify-content: center;
+    }
+    .choice-button-container {
+      margin: 10px;
+    }
+    .choice-image {
+      width: 100px;
+      height: 100px;
+      margin: 10px;
+    }
+    .choices {
+      display: flex;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Piedra, Papel o Tijeras - Apuestas</h1>
+
+  <!-- Marcadores de victorias y derrotas -->
+  <div class="score">
+    <p><strong>Victorias:</strong> <span id="wins">0</span> | <strong>Derrotas:</strong> <span id="losses">0</span></p>
+  </div>
+
+  <!-- Saldo de monedas -->
+  <div class="balance">
+    <p>Saldo: <span id="balance">100</span> monedas</p>
+  </div>
+  
+  <!-- Apuesta -->
+  <div class="bet">
+    <label for="betAmount">Apuesta: </label>
+    <input type="number" id="betAmount" min="1" max="100" value="10">
+  </div>
+
+  <!-- Opciones para elegir (Piedra, Papel, Tijeras) -->
+  <div class="buttons-container">
+    <div class="choice-button-container">
+      <button class="choice-button" onclick="play('piedra')">
+        <img src="imagenes/piedra.png" width="300" height="300">
+      </button>
+    </div>
+    <div class="choice-button-container">
+      <button class="choice-button" onclick="play('papel')">
+        <img src="imagenes/papel.png" width="300" height="300">
+      </button>
+    </div>
+    <div class="choice-button-container">
+      <button class="choice-button" onclick="play('tijeras')">
+        <img src="imagenes/tijeras.webp" width="300" height="300">
+      </button>
+    </div>
+  </div>
+
+  <!-- Resultado del juego -->
+  <div class="result">
+    <p id="gameResult"></p>
+  </div>
+
+  <!-- Elecciones del jugador y de la máquina -->
+  <div class="choices">
+    <div>
+      <p><strong>Tú:</strong></p>
+      <img id="playerChoiceImage" src="" alt="Elección del jugador" class="choice-image">
+    </div>
+    <div>
+      <p><strong>Máquina:</strong></p>
+      <img id="computerChoiceImage" src="" alt="Elección de la máquina" class="">
+    </div>
+  </div>
+
+  <script>
+    let balance = 100;  // Saldo inicial del jugador
+    let wins = 0;       // Contador de victorias
+    let losses = 0;     // Contador de derrotas
+
+    // Función para jugar
+    function play(playerChoice) {
+      const betAmount = parseInt(document.getElementById('betAmount').value);
+      if (betAmount > balance) {
+        alert('No tienes suficientes monedas para esa apuesta.');
+        return;
+      }
+
+      // Opciones posibles
+      const choices = ['piedra', 'papel', 'tijeras'];
+      const computerChoice = choices[Math.floor(Math.random() * 3)];
+
+      // Actualizar las imágenes de las elecciones
+      document.getElementById('playerChoiceImage').src = getImageForChoice(playerChoice);
+      document.getElementById('computerChoiceImage').src = getImageForChoice(computerChoice);
+
+      // Resultados del juego
+      let result = '';
+      if (playerChoice === computerChoice) {
+        result = '¡Empate!';
+      } else if (
+        (playerChoice === 'piedra' && computerChoice === 'tijeras') ||
+        (playerChoice === 'papel' && computerChoice === 'piedra') ||
+        (playerChoice === 'tijeras' && computerChoice === 'papel')
+      ) {
+        result = `¡Ganaste! La máquina eligió ${computerChoice}. Doble de tu apuesta: +${betAmount * 2} monedas.`;
+        balance += betAmount;  // El jugador gana el doble de su apuesta
+        wins++;                // Aumenta el contador de victorias
+      } else {
+        result = `Perdiste. La máquina eligió ${computerChoice}.`;
+        balance -= betAmount;  // El jugador pierde su apuesta
+        losses++;              // Aumenta el contador de derrotas
+      }
+
+      // Actualiza el saldo y el resultado
+      document.getElementById('balance').innerText = balance;
+      document.getElementById('gameResult').innerText = result;
+      document.getElementById('wins').innerText = wins;
+      document.getElementById('losses').innerText = losses;
+    }
+
+    // Función para obtener la imagen correspondiente a la elección
+    function getImageForChoice(choice) {
+      switch (choice) {
+        case 'piedra':
+          return "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Rock_%28hand_shape%29.svg/120px-Rock_%28hand_shape%29.svg.png";
+        case 'papel':
+          return "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Hand_with_fingers_splayed.svg/120px-Hand_with_fingers_splayed.svg.png";
+        case 'tijeras':
+          return "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Scissors_%28hand_shape%29.svg/120px-Scissors_%28hand_shape%29.svg.png";
+        default:
+          return "";
+      }
+    }
+  </script>
+
+</body>
+</html>
+
+
