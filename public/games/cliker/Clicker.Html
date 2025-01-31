@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zombie Apocalypse Clicker</title>
+    <style>
+        
+    </style>
+ 
+</head>
+    <style>
+        body {
+	text-align: center;
+	background-color: #2b2b2b;
+	color: limegreen;
+	font-family: "Press Start 2P", cursive;
+}
+.zombie {
+	width: 150px;
+	height: 150px;
+	background-image: url("img/zombie.png");
+	background-size: cover;
+	display: inline-block;
+	cursor: pointer;
+}
+.stats {
+	font-size: 18px;
+	margin: 20px;
+}
+.shop button {
+	padding: 10px;
+	margin: 5px;
+	cursor: pointer;
+	font-family: "Press Start 2P", cursive;
+}
+    </style>
+
+<body>
+
+
+    
+    <background-image: url="img/zombie.png"></background-image:>
+    <h1>Zombie Apocalypse Clicker</h1>
+    <div class="stats">Zombies Eliminados: <span id="zombie-count">0</span></div>
+    <div class="zombie" onclick="killZombie()"></div>
+    <div class="shop">
+        <button onclick="buyBat()">Comprar Bate (+2 daño/clic) - 20 zombies</button>
+        <button onclick="buySurvivor()">Reclutar Sobreviviente (+1 daño/s) - 50 zombies</button>
+    </div>
+
+    <script>
+        let zombiesKilled = 0;
+        let damagePerClick = 1;
+        let damagePerSecond = 0;
+
+        function killZombie() {
+            zombiesKilled += damagePerClick;
+            updateZombies();
+        }
+
+        function updateZombies() {
+            document.getElementById("zombie-count").innerText = zombiesKilled;
+        }
+
+        function buyBat() {
+            if (zombiesKilled >= 20) {
+                zombiesKilled -= 20;
+                damagePerClick += 2;
+                updateZombies();
+            }
+        }
+
+        function buySurvivor() {
+            if (zombiesKilled >= 50) {
+                zombiesKilled -= 50;
+                damagePerSecond += 1;
+                updateZombies();
+            }
+        }
+
+        setInterval(() => {
+            zombiesKilled += damagePerSecond;
+            updateZombies();
+        }, 1000);
+    </script>
+</body>
+</html>
