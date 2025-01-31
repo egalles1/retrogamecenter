@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrera de Camellos</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .race-track { display: flex; flex-direction: column; align-items: start; margin-top: 20px; }
+        .camel { width: 50px; height: 50px; position: relative; }
+        .track-line { display: flex; align-items: center; width: 80%; border-bottom: 2px solid #000; padding: 5px; }
+        .camel img { width: 50px; height: 50px; position: relative; }
+    </style>
+</head>
+<body>
+    <div id="start-screen">
+        <h1>Carrera de Camellos</h1>
+        <label>Nombre: <input type="text" id="player-name"></label><br>
+        <label>Camellos en carrera: <input type="number" id="num-camels" min="2" max="10"></label><br>
+        <button onclick="startRace()">Iniciar Carrera</button>
+    </div>
+    
+    <div id="race-screen" style="display: none;">
+        <h2 id="race-title"></h2>
+        <div id="race-track" class="race-track"></div>
+        <button onclick="startGame()">Comenzar</button>
+    </div>
+    
+    <script>
+        let camels = [];
+        let playerCamel;
+        let raceInterval;
+        let trackLength = 200;
+        
+        function startRace() {
+            let playerName = document.getElementById('player-name').value;
+            let numCamels = parseInt(document.getElementById('num-camels').value);
+            
+            if (!playerName || numCamels < 2) {
+                alert('Ingresa un nombre y elige al menos 2 camellos.');
+                return;
+            }
+            
+            document.getElementById('start-screen').style.display = 'none';
+            document.getElementById('race-screen').style.display = 'block';
+            document.getElementById('race-title').innerText = `Carrera de Camellos (${playerName})`;
+            
+            let raceTrack = document.getElementById('race-track');
+            raceTrack.innerHTML = '';
+            camels = [];
+            
+            for (let i = 0; i < numCamels; i++) {
+                let camel = { id: i, position: 0 };
+                camels.push(camel);
+                
+                let trackLine = document.createElement('div');
+                trackLine.className = 'track-line';
+                
+                let camelDiv = document.createElement('div');
+                camelDiv.className = 'camel';
+                camelDiv.id = `camel-${i}`;
+                camelDiv.innerHTML = `🐪`;
+                
+                trackLine.appendChild(camelDiv);
+                raceTrack.appendChild(trackLine);
+            }
+            
+            playerCamel = Math.floor(Math.random() * numCamels);
+            alert(`Tu camello es el número ${playerCamel + 1}`);
+        }
+        
+        function startGame() {
+            raceInterval = setInterval(moveCamels, 1000);
+        }
+        
+        function moveCamels() {
+            let randomCamel = Math.floor(Math.random() * camels.length);
+            camels[randomCamel].position += Math.random() * 50 + 10;
+            
+            let camelElement = document.getElementById(`camel-${randomCamel}`);
+            camelElement.style.transform = `translateX(${camels[randomCamel].position}px)`;
+            
+            if (camels[randomCamel].position >= trackLength) {
+                clearInterval(raceInterval);
+                announceWinner(randomCamel);
+            }
+        }
+        
+        function announceWinner(winner) {
+            if (winner === playerCamel) {
+                alert('¡Felicidades! Tu camello ganó la carrera.');
+            } else {
+                alert(`Perdiste, el camello número ${winner + 1} ganó.`);
+            }
+        }
+    </script>
+</body>
+</html>

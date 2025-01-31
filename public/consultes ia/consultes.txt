@@ -11,5 +11,15 @@ Alejandro: programame el juego del ahorcado que cada vez que quieras jugar tenga
 
 jo marc gurrera li preguntare a la ia com poder optimitrzar la meva tasca per a diferents exploradors
 
-jo Jordi he Diseñado una pista dividida en carriles para cada camello. Usa imágenes o sprites para los camellos y jinetes. Considera dividir la pista en tramos para facilitar el seguimiento de los progresosen HTML.
+jo Jordi 
+
+he Diseñado una pista dividida en carriles para cada camello. Usa imágenes o sprites para los camellos y jinetes. Considera dividir la pista en tramos para facilitar el seguimiento de los progresosen HTML.
+
+Ajustes Eloi:
+Actua como un desarrollador experto en JavaScript, css, HTML.
+Quiero desarrollar un videojuego que tenga estas características:
+Quiero hacer una carrera de camellos, el cual mi personaje cuando entre tenga que selecciuonar cuantos camellos corren.
+Es decir, tendre un formulario donde tengo que poner mi nombre, y luego elegir cuantos camellos correrán.
+La lógica del juego tiene que ser la siguiente. Una vez elegidos cuantos camellos correrán, tendre cada x segundos un numero al azar que hará correr en un array de posiciones la posición que salga del camello que haya salido al azar.
+Cuando un camello haya recorrido cierta distancia ganara. Si he sido yo, ganaré la apuesta que haya realizado, si ha sido la maquina la perderé.
 
