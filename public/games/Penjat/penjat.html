@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juego del Ahorcado</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+    }
+    .game-area {
+      width: 60%;
+    }
+    .gallows-area {
+      width: 40%;
+    }
+    .word {
+      font-size: 24px;
+      letter-spacing: 4px;
+      margin: 20px 0;
+    }
+    .message {
+      font-size: 18px;
+      margin: 10px 0;
+    }
+    .keyboard button {
+      margin: 5px;
+      padding: 10px 15px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      background: #007bff;
+      color: white;
+    }
+    .keyboard button:disabled {
+      background: #ddd;
+      cursor: not-allowed;
+    }
+    .play-again {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      background: #28a745;
+      color: white;
+      cursor: pointer;
+    }
+    .gallows {
+      margin: 20px auto;
+      width: 200px;
+      height: 300px;
+      position: relative;
+    }
+    .gallows .base {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 20px;
+      background: #333;
+    }
+    .gallows .vertical {
+      position: absolute;
+      bottom: 20px;
+      left: 50px;
+      width: 20px;
+      height: 250px;
+      background: #333;
+    }
+    .gallows .horizontal {
+      position: absolute;
+      top: 0;
+      left: 50px;
+      width: 100px;
+      height: 20px;
+      background: #333;
+    }
+    .gallows .rope {
+      position: absolute;
+      top: 20px;
+      left: 130px;
+      width: 2px;
+      height: 40px;
+      background: #333;
+    }
+    .figure {
+      position: absolute;
+      top: 60px;
+      left: 115px;
+    }
+    .figure .head {
+      width: 30px;
+      height: 30px;
+      border: 2px solid #333;
+      border-radius: 50%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: none;
+    }
+    .figure .body {
+      width: 2px;
+      height: 50px;
+      background: #333;
+      position: absolute;
+      top: 32px;
+      left: 15px;
+      display: none;
+    }
+    .figure .arm {
+      width: 40px;
+      height: 2px;
+      background: #333;
+      position: absolute;
+      top: 45px;
+      display: none;
+    }
+    .figure .arm.left {
+      transform: rotate(-45deg);
+      left: -10px;
+    }
+    .figure .arm.right {
+      transform: rotate(45deg);
+      left: 2px;
+    }
+    .figure .leg {
+      width: 40px;
+      height: 2px;
+      background: #333;
+      position: absolute;
+      top: 80px;
+      display: none;
+    }
+    .figure .leg.left {
+      transform: rotate(45deg);
+      left: -5px;
+    }
+    .figure .leg.right {
+      transform: rotate(-45deg);
+      left: -2px;
+    }
+    #coins-container {
+      margin-bottom: 20px;
+    }
+    #coins-container span {
+      font-size: 18px;
+      font-weight: bold;
+    }
+    #difficulty {
+      margin-bottom: 10px;
+      padding: 5px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div id="coins-container">
+    <span>Monedas: <span id="coins">10</span></span>
+  </div>
+  <div class="container">
+    <div class="game-area">
+      <h1>Juego del Ahorcado</h1>
+      <select id="difficulty">
+        <option value="easy">Fácil</option>
+        <option value="medium">Medio</option>
+        <option value="hard">Difícil</option>
+        <option value="passive">Pasivo</option>
+      </select>
+      <div class="word" id="word">_ _ _ _ _</div>
+      <div class="message" id="message"></div>
+      <div class="keyboard" id="keyboard"></div>
+      <button class="play-again" id="play-again" style="display: none;">Jugar de nuevo</button>
+    </div>
+    <div class="gallows-area">
+      <div class="gallows">
+        <div class="base"></div>
+        <div class="vertical"></div>
+        <div class="horizontal"></div>
+        <div class="rope"></div>
+        <div class="figure">
+          <div class="head"></div>
+          <div class="body"></div>
+          <div class="arm left"></div>
+          <div class="arm right"></div>
+          <div class="leg left"></div>
+          <div class="leg right"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const wordsPool = [
+      "abejorro", "galaxias", "montañas", "sistema", "naranja", "amigo", "espejo", "botella", "ventana", "bocinas", "planeta", "teclado"
+    ];
+
+    let coins = 10;
+    let currentWord = "";
+    let guessedWord = [];
+    let attempts = 6;
+
+    const coinsEl = document.getElementById("coins");
+    const wordEl = document.getElementById("word");
+    const messageEl = document.getElementById("message");
+    const keyboardEl = document.getElementById("keyboard");
+    const playAgainBtn = document.getElementById("play-again");
+    const difficultySelect = document.getElementById("difficulty");
+
+    const figureParts = {
+      easy: [
+        document.querySelector(".figure .body"),
+        document.querySelector(".figure .arm.left"),
+        document.querySelector(".figure .arm.right"),
+        document.querySelector(".figure .leg.left"),
+        document.querySelector(".figure .leg.right")
+      ],
+      medium: [
+        document.querySelector(".figure .head"),
+        document.querySelector(".figure .body"),
+        document.querySelector(".figure .arm.left"),
+        document.querySelector(".figure .arm.right"),
+        document.querySelector(".figure .leg.left"),
+        document.querySelector(".figure .leg.right")
+      ],
+      hard: [
+        document.querySelector(".figure .head"),
+        document.querySelector(".figure .body"),
+        document.querySelector(".figure .arm.left"),
+        document.querySelector(".figure .arm.right"),
+        document.querySelector(".figure .leg.left"),
+        document.querySelector(".figure .leg.right")
+      ],
+      passive: [
+        document.querySelector(".figure .head"),
+        document.querySelector(".figure .body"),
+        document.querySelector(".figure .arm.left"),
+        document.querySelector(".figure .arm.right"),
+        document.querySelector(".figure .leg.left"),
+        document.querySelector(".figure .leg.right")
+      ]
+    };
+
+    function startGame() {
+      const difficulty = difficultySelect.value;
+      
+      if (difficulty !== "passive") {
+        if (coins < 2) {
+          messageEl.textContent = "No tienes suficientes monedas para jugar.";
+          return;
+        }
+        coins -= 2;
+      }
+      
+      coinsEl.textContent = coins;
+
+      switch (difficulty) {
+        case "easy":
+          attempts = 5;
+          break;
+        case "medium":
+          attempts = 10;
+          break;
+        case "hard":
+          attempts = 15;
+          break;
+        case "passive":
+          attempts = 6;
+          break;
+      }
+
+      currentWord = wordsPool[Math.floor(Math.random() * wordsPool.length)];
+      guessedWord = Array(currentWord.length).fill("_");
+
+      updateWordDisplay();
+      messageEl.textContent = "";
+      generateKeyboard();
+      playAgainBtn.style.display = "none";
+
+      document.querySelectorAll(".figure > div").forEach(part => part.style.display = "none");
+    }
+
+    function updateWordDisplay() {
+      wordEl.textContent = guessedWord.join(" ");
+    }
+
+    function generateKeyboard() {
+      keyboardEl.innerHTML = "";
+      for (let i = 65; i <= 90; i++) {
+        const button = document.createElement("button");
+        button.textContent = String.fromCharCode(i);
+        button.addEventListener("click", () => handleGuess(button.textContent.toLowerCase()));
+        button.setAttribute("data-key", String.fromCharCode(i).toLowerCase());
+        keyboardEl.appendChild(button);
+      }
+    }
+
+    function handleGuess(letter) {
+      const buttons = keyboardEl.querySelectorAll("button");
+      buttons.forEach((btn) => {
+        if (btn.textContent.toLowerCase() === letter) {
+          btn.disabled = true;
+        }
+      });
+
+      if (currentWord.includes(letter)) {
+        currentWord.split("").forEach((char, index) => {
+          if (char === letter) {
+            guessedWord[index] = letter;
+          }
+        });
+        updateWordDisplay();
+        checkWin();
+      } else {
+        attempts--;
+        updateFigure();
+        messageEl.textContent = `Intentos restantes: ${attempts}`;
+        if (attempts === 0) {
+          endGame(false);
+        }
+      }
+    }
+
+    function updateFigure() {
+      const difficulty = difficultySelect.value;
+      const parts = figureParts[difficulty];
+      const partIndex = parts.length - attempts - 1;
+      if (partIndex >= 0 && partIndex < parts.length) {
+        parts[partIndex].style.display = "block";
+      }
+    }
+
+    function checkWin() {
+      if (!guessedWord.includes("_")) {
+        endGame(true);
+      }
+    }
+
+    function endGame(win) {
+      if (win) {
+        const difficulty = difficultySelect.value;
+        let reward;
+        switch (difficulty) {
+          case "easy":
+            reward = 2;
+            break;
+          case "medium":
+            reward = 4;
+            break;
+          case "hard":
+            reward = 8;
+            break;
+          case "passive":
+            reward = 0;
+            break;
+        }
+        coins += reward;
+        messageEl.textContent = `¡Ganaste!${reward > 0 ? ` Has ganado ${reward} monedas.` : ''}`;
+      } else {
+        messageEl.textContent = `Perdiste. La palabra era: ${currentWord}`;
+      }
+      coinsEl.textContent = coins;
+      keyboardEl.innerHTML = "";
+      playAgainBtn.style.display = "inline-block";
+    }
+
+    playAgainBtn.addEventListener("click", startGame);
+    difficultySelect.addEventListener("change", startGame);
+
+    document.addEventListener("keydown", (event) => {
+      const key = event.key.toLowerCase();
+      if (/^[a-z]$/.test(key)) {
+        const button = document.querySelector(`button[data-key="${key}"]`);
+        if (button && !button.disabled) {
+          handleGuess(key);
+        }
+      }
+    });
+
+    startGame();
+  </script>
+</body>
+</html>
