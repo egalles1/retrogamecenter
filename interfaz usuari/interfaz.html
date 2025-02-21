@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interfaz Principal</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-image: url('fondo.png');
+            background-position: center;  /* Centra la imagen de fondo */
+            background-repeat: no-repeat; /* Evita que se repita la imagen */
+            background-size: cover; /* Hace que la imagen cubra toda el área visible */
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+ 
+        .container {
+            text-align: center;
+        }
+ 
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.6);
+            animation: glow 1.5s infinite alternate;
+        }
+ 
+        .button {
+            display: inline-block;
+            margin: 1rem;
+            padding: 1rem 2rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+ 
+        .button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+ 
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.6);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(255, 215, 0, 1), 0 0 30px rgba(255, 215, 0, 0.8);
+            }
+        }
+ 
+        /* Estilos para el formulario de inicio de sesión y registro */
+        .auth-container {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+ 
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+ 
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+ 
+        label {
+            font-weight: bold;
+            font-size: 1rem;
+        }
+ 
+        input {
+            padding: 0.75rem;
+            border: none;
+            border-radius: 10px;
+            outline: none;
+            font-size: 1rem;
+        }
+ 
+        button {
+            padding: 0.75rem;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #0077b6;
+            background: #ffd60a;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+ 
+        button:hover {
+            background: #ffaa00;
+        }
+ 
+        p {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+ 
+        a {
+            color: #ffd60a;
+            text-decoration: none;
+            font-weight: bold;
+        }
+ 
+        a:hover {
+            text-decoration: underline;
+        }
+ 
+        .form-container {
+            display: none;
+        }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Bienvenido</h1>
+<a href="juegos.html" class="button">Juegos</a>
+<a href="galeria.html" class="button">Galería</a>
+<br><br>
+ 
+        <!-- Botones de Login y Register -->
+<button onclick="showForm('login')">Iniciar Sesión</button>
+<button onclick="showForm('register')">Registrar</button>
+ 
+        <!-- Formulario de Login -->
+<div id="login" class="auth-container form-container">
+<h2>Iniciar Sesión</h2>
+<form action="#" method="post">
+<label for="username">Nom d'usuari</label>
+<input type="text" id="username" name="username" placeholder="Entra el teu nom d'usuari" required>
+ 
+                <label for="password">Contrasenya</label>
+<input type="password" id="password" name="password" placeholder="Entra la teva contrasenya" required>
+ 
+                <button type="submit">Inicia sessió</button>
+</form>
+<p>No tens compte? <a href="#" onclick="showForm('register')">Registra't aquí</a>.</p>
+</div>
+ 
+        <!-- Formulario de Registro -->
+<div id="register" class="auth-container form-container">
+<h2>Registrar-se</h2>
+<form action="#" method="post">
+<label for="username">Nom d'usuari</label>
+<input type="text" id="username" name="username" placeholder="Crea el teu nom d'usuari" required>
+ 
+                <label for="email">Correu electrònic</label>
+<input type="email" id="email" name="email" placeholder="Entra el teu correu electrònic" required>
+ 
+                <label for="password">Contrasenya</label>
+<input type="password" id="password" name="password" placeholder="Crea una contrasenya" required>
+ 
+                <label for="confirm-password">Confirma la contrasenya</label>
+<input type="password" id="confirm-password" name="confirm-password" placeholder="Confirma la teva contrasenya" required>
+ 
+                <button type="submit">Registrar-se</button>
+</form>
+<p>Ja tens un compte? <a href="#" onclick="showForm('login')">Inicia sessió aquí</a>.</p>
+</div>
+</div>
+ 
+    <script>
+        function showForm(formType) {
+            const loginForm = document.getElementById('login');
+            const registerForm = document.getElementById('register');
+ 
+            // Hide both forms initially
+            loginForm.classList.add('form-container');
+            registerForm.classList.add('form-container');
+ 
+            if (formType === 'login') {
+                loginForm.classList.remove('form-container');
+            } else if (formType === 'register') {
+                registerForm.classList.remove('form-container');
+            }
+        }
+</script>
+</body>
+</html>
