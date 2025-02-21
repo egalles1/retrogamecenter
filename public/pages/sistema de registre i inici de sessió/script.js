@@ -4,6 +4,10 @@ function $(id) { return document.getElementById(id); }
 // Estado de la aplicación
 let currentUser = null;
 
+// ... (código anterior)
+
+
+
 // Inicialización
 document.addEventListener('DOMContentLoaded', () => {
     $('homeBtn').addEventListener('click', showHome);
@@ -82,15 +86,25 @@ function playGame(gameId, cost) {
     alert(`¡Estás jugando al juego ${gameId}! Te quedan ${currentUser.coins} monedas.`);
     // Aquí implementarías la lógica real del juego
 }
+document.addEventListener('DOMContentLoaded', () => {
+    // ... (código existente)
+
+    // Cerrar modal al hacer clic fuera de ella
+    window.onclick = function(event) {
+        if (event.target == $('modalContainer')) {
+            closeModal();
+        }
+    }
+});
 
 function showLoginModal() {
     const modalHTML = `
         <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
             <h2>Iniciar Sesión</h2>
-            <input type="text" id="loginUsername" placeholder="Usuario">
-            <input type="password" id="loginPassword" placeholder="Contraseña">
+            <input type="email" id="loginEmail" placeholder="Correo electrónico" required>
+            <input type="password" id="loginPassword" placeholder="Contraseña" required>
             <button onclick="login()">Iniciar Sesión</button>
-            <button id="botonSalir">Salir</button>
         </div>
     `;
     $('modalContainer').innerHTML = modalHTML;
@@ -100,16 +114,19 @@ function showLoginModal() {
 function showRegisterModal() {
     const modalHTML = `
         <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
             <h2>Registrarse</h2>
-            <input type="text" id="registerCorreo" placeholder="Correo">
-            <input type="text" id="registerUsername" placeholder="Usuario">
-            <input type="password" id="registerPassword" placeholder="Contraseña">
+            <input type="email" id="registerEmail" placeholder="Correo electrónico" required>
+            <input type="password" id="registerPassword" placeholder="Contraseña" required>
             <button onclick="register()">Registrarse</button>
-            <button id="botonSalir">Salir</button>
         </div>
     `;
     $('modalContainer').innerHTML = modalHTML;
     $('modalContainer').style.display = 'block';
+}
+
+function closeModal() {
+    $('modalContainer').style.display = 'none';
 }
 
 function login() {
@@ -150,6 +167,6 @@ function register() {
     updateNavigation(true);
     showHome();
 }
-document.getElementById('botonSalir').addEventListener('click', function() {
-    window.close();
-});
+
+
+

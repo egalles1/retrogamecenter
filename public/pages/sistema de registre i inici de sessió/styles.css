@@ -5,8 +5,8 @@ body {
 }
 
 header {
-    background-color: #333;
-    color: white;
+    background-color: #bf0505;
+    color: rgb(0, 0, 0);
     padding: 1rem;
 }
 
@@ -27,7 +27,7 @@ nav button {
 }
 
 .modal-content {
-    background-color: #fefefe;
+    background-color: #a82323;
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
@@ -39,4 +39,18 @@ nav button {
     padding: 10px;
     margin: 10px;
     display: inline-block;
+}
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
 }
