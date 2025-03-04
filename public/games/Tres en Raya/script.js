@@ -1,193 +1,252 @@
-const cells = document.querySelectorAll(".cell");
-const restartButton = document.getElementById("restart");
-const coinsDisplay = document.getElementById("coins-display");
+// Game state
+let board = Array(9).fill(null);
+let currentPlayer = 'X';
+let gameMode = 'ai';
+let difficulty = 'easy';
+let gameStatus = 'playing';
 
-const modeSelection = document.getElementById("mode-selection");
-const vsAIButton = document.getElementById("vs-ai");
-const vsPlayerButton = document.getElementById("vs-player");
-const difficultySelection = document.getElementById("difficulty-selection");
-const difficultyButtons = document.querySelectorAll(".difficulty");
-
-const winnerScreen = document.getElementById("winner-screen");
-const winnerMessage = document.getElementById("winner-message");
-const winnerClose = document.getElementById("winner-close");
-
-let playerCoins = 100;
-let isGameActive = false;
-let board = ["", "", "", "", "", "", "", "", ""];
-let gameMode = "AI";  // Per defecte, juguem contra la màquina
-let currentPlayer = "X";
-
-// Variables de dificultat
-let difficulty = "medium"; // Dificultat per defecte
-let betAmount = 20;
-let winAmount = 50;
-
-// Pantalla inicial per triar mode de joc
-window.onload = () => {
-    modeSelection.style.display = "flex";
+// Stats
+let stats = JSON.parse(localStorage.getItem('tictactoe-stats')) || {
+  wins: 0,
+  losses: 0,
+  draws: 0,
+  coins: 0
 };
 
-// Elecció del mode de joc
-vsAIButton.addEventListener("click", () => {
-    gameMode = "AI";
-    difficultySelection.style.display = "block"; // Mostrar la selecció de dificultat
-});
+// DOM elements
+const cells = document.querySelectorAll('.cell');
+const aiModeBtn = document.getElementById('ai-mode');
+const multiplayerModeBtn = document.getElementById('multiplayer-mode');
+const difficultyBtns = document.querySelectorAll('.difficulty');
+const resetBtn = document.getElementById('reset');
+const statsToggle = document.getElementById('stats-toggle');
+const statsPanel = document.getElementById('stats');
+const coinsCount = document.getElementById('coins-count');
+const gameEndMessage = document.getElementById('game-end-message');
+const difficultySelector = document.getElementById('difficulty-selector');
 
-// Elecció per jugar 1v1
-vsPlayerButton.addEventListener("click", () => {
-    gameMode = "1v1";
-    modeSelection.style.display = "none";
-    initGame();
-});
-
-// Selecció de dificultat
-difficultyButtons.forEach(button => {
-    button.addEventListener("click", (event) => {
-        difficulty = event.target.dataset.difficulty;
-
-        if (difficulty === "easy") { betAmount = 10; winAmount = 10; }
-        else if (difficulty === "medium") { betAmount = 20; winAmount = 50; }
-        else if (difficulty === "hard") { betAmount = 50; winAmount = 100; }
-
-        if (gameMode === "AI") {
-            playerCoins -= betAmount; // Restar les monedes inicials
-            updateCoins();
-        }
-
-        modeSelection.style.display = "none"; // Ocultar el mode de selecció
-        initGame();
-    });
-});
-
-// Inicialitzar el joc
-function initGame() {
-    board = ["", "", "", "", "", "", "", "", ""];
-    isGameActive = true;
-    currentPlayer = "X";
-    cells.forEach(cell => {
-        cell.textContent = "";
-        cell.classList.remove("placed");
-    });
-    coinsDisplay.textContent = `Monedes: ${playerCoins}`;
+// Update UI from stats
+function updateStats() {
+  document.querySelector('.wins').textContent = stats.wins;
+  document.querySelector('.losses').textContent = stats.losses;
+  document.querySelector('.draws').textContent = stats.draws;
+  coinsCount.textContent = stats.coins;
+  localStorage.setItem('tictactoe-stats', JSON.stringify(stats));
 }
 
-// Actualitzar el nombre de monedes
-function updateCoins() {
-    coinsDisplay.textContent = `Monedes: ${playerCoins}`;
+// Sound effects
+const sounds = {
+  move: new Audio('https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3'),
+  win: new Audio('https://assets.mixkit.co/active_storage/sfx/1435/1435-preview.mp3'),
+  draw: new Audio('https://assets.mixkit.co/active_storage/sfx/2/2-preview.mp3'),
+  lose: new Audio('https://assets.mixkit.co/active_storage/sfx/1367/1367-preview.mp3')
+};
+
+function playSound(type) {
+  sounds[type].play().catch(() => {});
 }
 
-// Gestió de clics en el taulell
-cells.forEach(cell => cell.addEventListener("click", handleCellClick));
+// Game logic
+const WINNING_COMBINATIONS = [
+  [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+  [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+  [0, 4, 8], [2, 4, 6] // Diagonals
+];
 
-function handleCellClick(event) {
-    const cell = event.target;
-    const index = cell.dataset.index;
-
-    if (!isGameActive || board[index] !== "") return;
-
-    placePiece(cell, index, currentPlayer);
-
-    if (gameMode === "AI" && isGameActive) {
-        setTimeout(machineMove, 500);
-    } else if (gameMode === "1v1") {
-        currentPlayer = currentPlayer === "X" ? "O" : "X";
-    }
-}
-
-// Col·locar una peça
-function placePiece(cell, index, symbol) {
-    board[index] = symbol;
-    cell.textContent = symbol;
-    cell.classList.add("placed");
-
-    checkWinner();
-}
-
-// Moviment de la màquina
-function machineMove() {
-    if (!isGameActive) return;
-
-    let emptyCells = board.map((val, idx) => (val === "" ? idx : null)).filter(val => val !== null);
-    if (emptyCells.length === 0) return;
-
-    let randomIndex = emptyCells[Math.floor(Math.random() * emptyCells.length)];
-    let cell = document.querySelector(`.cell[data-index='${randomIndex}']`);
-    
-    placePiece(cell, randomIndex, "O");
-}
-
-// Comprovar si hi ha guanyador
 function checkWinner() {
-    const winPatterns = [
-        [0, 1, 2], [3, 4, 5], [6, 7, 8],
-        [0, 3, 6], [1, 4, 7], [2, 5, 8],
-        [0, 4, 8], [2, 4, 6]
-    ];
-
-    for (let pattern of winPatterns) {
-        let [a, b, c] = pattern;
-        if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-            endGame(`${board[a]} ha guanyat!`);
-            return;
-        }
+  for (const combo of WINNING_COMBINATIONS) {
+    const [a, b, c] = combo;
+    if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+      return board[a];
     }
-
-    if (!board.includes("")) endGame("Empat!");
+  }
+  return null;
 }
 
-// Mostrar pantalla de resultat
-function endGame(message) {
-    isGameActive = false;
-
-    if (message.includes("X ha guanyat!") && gameMode === "AI") playerCoins += winAmount;
-    if (message.includes("O ha guanyat!") && gameMode === "AI") playerCoins -= betAmount;
-
-    winnerMessage.textContent = message;
-    winnerScreen.style.display = "flex";
+function isBoardFull() {
+  return board.every(cell => cell !== null);
 }
 
-winnerClose.addEventListener("click", () => {
-    winnerScreen.style.display = "none";
-    initGame();
+function minimax(boardState, depth, isMaximizing) {
+  const winner = checkWinnerForBoard(boardState);
+  if (winner === 'O') return 1;
+  if (winner === 'X') return -1;
+  if (isBoardFullForBoard(boardState) || depth === 0) return 0;
+
+  if (isMaximizing) {
+    let bestScore = -Infinity;
+    for (let i = 0; i < 9; i++) {
+      if (boardState[i] === null) {
+        boardState[i] = 'O';
+        bestScore = Math.max(bestScore, minimax(boardState, depth - 1, false));
+        boardState[i] = null;
+      }
+    }
+    return bestScore;
+  } else {
+    let bestScore = Infinity;
+    for (let i = 0; i < 9; i++) {
+      if (boardState[i] === null) {
+        boardState[i] = 'X';
+        bestScore = Math.min(bestScore, minimax(boardState, depth - 1, true));
+        boardState[i] = null;
+      }
+    }
+    return bestScore;
+  }
+}
+
+function checkWinnerForBoard(boardState) {
+  for (const combo of WINNING_COMBINATIONS) {
+    const [a, b, c] = combo;
+    if (boardState[a] && boardState[a] === boardState[b] && boardState[a] === boardState[c]) {
+      return boardState[a];
+    }
+  }
+  return null;
+}
+
+function isBoardFullForBoard(boardState) {
+  return boardState.every(cell => cell !== null);
+}
+
+function getAIMove() {
+  const availableMoves = board.map((cell, index) => cell === null ? index : -1).filter(i => i !== -1);
+  
+  if (difficulty === 'easy') {
+    return availableMoves[Math.floor(Math.random() * availableMoves.length)];
+  }
+
+  const maxDepth = difficulty === 'medium' ? 2 : 5;
+  let bestScore = -Infinity;
+  let bestMove = availableMoves[0];
+
+  for (const move of availableMoves) {
+    const newBoard = [...board];
+    newBoard[move] = 'O';
+    const score = minimax(newBoard, maxDepth, false);
+    if (score > bestScore) {
+      bestScore = score;
+      bestMove = move;
+    }
+  }
+  return bestMove;
+}
+
+function showGameEndMessage(type) {
+  gameEndMessage.textContent = type === 'win' ? '¡Victoria!' :
+                             type === 'lose' ? '¡Derrota!' : '¡Empate!';
+  gameEndMessage.className = type;
+  gameEndMessage.classList.remove('hidden');
+}
+
+function handleGameEnd(result) {
+  gameStatus = result;
+  
+  if (result === 'win') {
+    playSound('win');
+    stats.wins++;
+    const coins = difficulty === 'easy' ? 1 : difficulty === 'medium' ? 2 : 5;
+    stats.coins += coins;
+    showGameEndMessage('win');
+  } else if (result === 'lose') {
+    playSound('lose');
+    stats.losses++;
+    showGameEndMessage('lose');
+  } else {
+    playSound('draw');
+    stats.draws++;
+    showGameEndMessage('draw');
+  }
+  
+  updateStats();
+  
+  setTimeout(() => {
+    resetGame();
+  }, 2000);
+}
+
+function makeMove(index) {
+  if (board[index] || gameStatus !== 'playing') return;
+
+  board[index] = currentPlayer;
+  cells[index].classList.add(currentPlayer.toLowerCase());
+  playSound('move');
+
+  const winner = checkWinner();
+  if (winner) {
+    handleGameEnd(winner === 'X' ? 'win' : 'lose');
+  } else if (isBoardFull()) {
+    handleGameEnd('draw');
+  } else if (gameMode === 'ai' && currentPlayer === 'X') {
+    currentPlayer = 'O';
+    setTimeout(() => {
+      const aiMove = getAIMove();
+      board[aiMove] = 'O';
+      cells[aiMove].classList.add('o');
+      playSound('move');
+
+      const aiWinner = checkWinner();
+      if (aiWinner) {
+        handleGameEnd('lose');
+      } else if (isBoardFull()) {
+        handleGameEnd('draw');
+      } else {
+        currentPlayer = 'X';
+      }
+    }, 500);
+  } else if (gameMode === 'multiplayer') {
+    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+  }
+}
+
+function resetGame() {
+  board = Array(9).fill(null);
+  currentPlayer = 'X';
+  gameStatus = 'playing';
+  gameEndMessage.classList.add('hidden');
+  cells.forEach(cell => {
+    cell.classList.remove('x', 'o');
+  });
+}
+
+// Event listeners
+cells.forEach((cell, index) => {
+  cell.addEventListener('click', () => makeMove(index));
 });
 
-restartButton.addEventListener("click", initGame);
-// Moviment de la màquina
-function machineMove() {
-    if (!isGameActive) return;
+aiModeBtn.addEventListener('click', () => {
+  gameMode = 'ai';
+  aiModeBtn.classList.add('active');
+  multiplayerModeBtn.classList.remove('active');
+  difficultySelector.style.display = 'flex';
+  resetGame();
+});
 
-    // Primer, bloqueja les jugades guanyadores del jugador
-    let move = findWinningMove("O");
-    if (move === -1) {
-        // Si no pot guanyar, bloqueja el jugador
-        move = findWinningMove("X");
-    }
+multiplayerModeBtn.addEventListener('click', () => {
+  gameMode = 'multiplayer';
+  multiplayerModeBtn.classList.add('active');
+  aiModeBtn.classList.remove('active');
+  difficultySelector.style.display = 'none';
+  resetGame();
+});
 
-    if (move === -1) {
-        // Si no pot bloquejar o guanyar, fa una jugada aleatòria
-        let emptyCells = board.map((val, idx) => (val === "" ? idx : null)).filter(val => val !== null);
-        move = emptyCells[Math.floor(Math.random() * emptyCells.length)];
-    }
+difficultyBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    difficultyBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    difficulty = btn.classList.contains('easy') ? 'easy' :
+                btn.classList.contains('medium') ? 'medium' : 'hard';
+    resetGame();
+  });
+});
 
-    // Realitza la jugada
-    let cell = document.querySelector(`.cell[data-index='${move}']`);
-    placePiece(cell, move, "O");
-}
+resetBtn.addEventListener('click', resetGame);
 
-// Funció per trobar un moviment guanyador
-function findWinningMove(player) {
-    const winPatterns = [
-        [0, 1, 2], [3, 4, 5], [6, 7, 8],
-        [0, 3, 6], [1, 4, 7], [2, 5, 8],
-        [0, 4, 8], [2, 4, 6]
-    ];
+statsToggle.addEventListener('click', () => {
+  statsPanel.classList.toggle('hidden');
+  statsToggle.classList.toggle('active');
+});
 
-    for (let pattern of winPatterns) {
-        let [a, b, c] = pattern;
-        if (board[a] === player && board[b] === player && board[c] === "") return c;
-        if (board[a] === player && board[c] === player && board[b] === "") return b;
-        if (board[b] === player && board[c] === player && board[a] === "") return a;
-    }
-    return -1; // No es pot guanyar
-}
+// Initialize
+updateStats();
