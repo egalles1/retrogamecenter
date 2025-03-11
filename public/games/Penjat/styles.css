@@ -1,0 +1,113 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: url('https://source.unsplash.com/1600x900/?galaxy,stars') repeat;
+  background-size: cover;
+  color: #fff;
+}
+
+.menu, .game-container {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.menu {
+  display: block;
+}
+
+.menu h1, .game-container h1 {
+  margin-bottom: 20px;
+}
+
+.menu button, .game-container button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+.menu button:hover, .game-container button:hover {
+  background: #0056b3;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  color: black;
+}
+
+.game-area {
+  width: 60%;
+}
+
+.word {
+  font-size: 24px;
+  letter-spacing: 4px;
+  margin: 20px 0;
+}
+
+.message {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.keyboard button {
+  margin: 5px;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  background: #007bff;
+  color: white;
+}
+
+.keyboard button:disabled {
+  background: #ddd;
+  cursor: not-allowed;
+}
+
+.play-again, .back-menu {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+}
+
+.play-again {
+  background: #28a745;
+}
+
+.back-menu {
+  background: #dc3545;
+  color: white;
+}
+
+.back-menu:hover {
+  background: #b52a36;
+}

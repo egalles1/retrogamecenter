@@ -102,7 +102,7 @@ function showLoginModal() {
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
             <h2>Iniciar Sesión</h2>
-            <input type="email" id="loginEmail" placeholder="Correo electrónico" required>
+            <input type="user" id="loginUser" placeholder="Nombre de Usuario" required>
             <input type="password" id="loginPassword" placeholder="Contraseña" required>
             <button onclick="login()">Iniciar Sesión</button>
         </div>
@@ -116,6 +116,7 @@ function showRegisterModal() {
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
             <h2>Registrarse</h2>
+            <input type="user" id="registerUser" placeholder="Nombre de Usuario" required>
             <input type="email" id="registerEmail" placeholder="Correo electrónico" required>
             <input type="password" id="registerPassword" placeholder="Contraseña" required>
             <button onclick="register()">Registrarse</button>
