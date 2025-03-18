@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zombie Clicker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1 class="title">Zombie Apocalypse Clicker</h1>
+
+    <div class="stats">Zombies Eliminados: <span id="zombie-count">0</span></div>
+    <div class="stats">Energía: <span id="energy-count">100</span></div>
+    <div class="energy-container">
+        <div class="energy-bar" id="energy-bar"></div>
+    </div>
+
+    <div class="event" id="event-message"></div>
+
+    <div class="game-container">
+        <div class="zombie" onclick="killZombie()"></div>
+    </div>
+
+    <div class="shop-container">
+        <button class="shop-button" onclick="toggleShop()">Mejoras</button>
+        <div class="shop" id="shop"></div>
+    </div>
+
+    <div class="boss-alert" id="boss-alert">¡BOSS!</div>
+
+    <div class="boss-screen" id="boss-screen">
+        <div class="boss-health-container">
+            <div class="boss-health-bar" id="boss-health-bar"></div>
+        </div>
+        <div class="boss" id="boss-zombie"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

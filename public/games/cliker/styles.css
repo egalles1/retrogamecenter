@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body {
+    text-align: center;
+    background-color: #2b2b2b;
+    color: limegreen;
+    font-family: "Press Start 2P", cursive;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+.title { margin-bottom: 20px; }
+.stats { font-size: 18px; margin-bottom: 10px; }
+
+.energy-container {
+    width: 200px;
+    height: 20px;
+    background-color: black;
+    border: 2px solid limegreen;
+    margin-top: 10px;
+}
+
+.energy-bar {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to right, limegreen, yellow, red);
+    transition: width 0.2s;
+}
+
+.game-container { position: relative; }
+.zombie {
+    width: 150px;
+    height: 150px;
+    background-image: url("img/zombie.png");
+    background-size: cover;
+    cursor: pointer;
+}
+
+.shop-container { position: absolute; right: 20px; top: 50px; }
+.shop-button {
+    padding: 5px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: "Press Start 2P", cursive;
+}
+
+.shop {
+    display: none;
+    flex-direction: column;
+    margin-top: 10px;
+    background-color: black;
+    border: 2px solid limegreen;
+    padding: 10px;
+}
+
+.shop-item {
+    font-size: 12px;
+    padding: 5px;
+    margin: 3px;
+    cursor: pointer;
+    background-color: black;
+    color: limegreen;
+    border: 1px solid limegreen;
+    text-align: center;
+}
+
+.boss-alert {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: red;
+    color: white;
+    padding: 20px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.boss-screen {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.boss-health-container {
+    width: 300px;
+    height: 25px;
+    background-color: black;
+    border: 2px solid red;
+    margin-bottom: 20px;
+}
+
+.boss-health-bar {
+    height: 100%;
+    width: 100%;
+    background-color: red;
+    transition: width 0.2s;
+}
+
+.boss {
+    width: 200px;
+    height: 200px;
+    background-image: url("img/zombie.png");
+    background-size: cover;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    animation: moveBoss 2s infinite alternate;
+}
+
+@keyframes moveBoss {
+    0% { left: 30%; }
+    100% { left: 70%; }
+}
