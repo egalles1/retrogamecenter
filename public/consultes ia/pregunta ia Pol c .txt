@@ -18,6 +18,11 @@ tingues en compte la imatge de com havia pensat que fos el sistema
 
 respon-me de la forma més eficaç possible i tenint en compte tots els casos que t'he esmentat.
 
+>> esta molt Ben feta la pregunta,
+Nomas faltaria posar que en tota pagina que generi que utilitzi el global.js que hi haurà
+L'estructura del localstorage i que haurem d'utilizar aquentes dades per guardar dls possibles
+Resultats un coup acabi el nostre joc.
+
 
 
 

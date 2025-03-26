@@ -1,7 +1,7 @@
 .fondo {
     margin: 0; /* Elimina cualquier margen predeterminado */
     height: 100vh; /* Asegura que el fondo ocupe toda la altura de la ventana */
-    background-image: url('../fondo.jpg');
+    background-image: url('../img/fondoblackjack.jpg');
  /*   background-size: cover; /* Ajusta el tamaño de la imagen para cubrir toda el área */
     background-repeat:space /* Evita que la imagen se repita */
     background-position: center; /* Centra la imagen en la pantalla */

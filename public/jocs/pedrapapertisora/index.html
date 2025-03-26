@@ -81,17 +81,17 @@
   <div class="buttons-container">
     <div class="choice-button-container">
       <button class="choice-button" onclick="play('piedra')">
-        <img src="imagenes/piedra.png" width="300" height="300">
+        <img src="../../img/piedra.png" width="300" height="300">
       </button>
     </div>
     <div class="choice-button-container">
       <button class="choice-button" onclick="play('papel')">
-        <img src="imagenes/papel.png" width="300" height="300">
+        <img src="../../img/papel.png" width="300" height="300">
       </button>
     </div>
     <div class="choice-button-container">
       <button class="choice-button" onclick="play('tijeras')">
-        <img src="imagenes/tijeras.webp" width="300" height="300">
+        <img src="../../img/tijeras.webp" width="300" height="300">
       </button>
     </div>
   </div>
@@ -163,11 +163,11 @@
     function getImageForChoice(choice) {
       switch (choice) {
         case 'piedra':
-          return "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Rock_%28hand_shape%29.svg/120px-Rock_%28hand_shape%29.svg.png";
+          return "../../img/piedra.png";
         case 'papel':
-          return "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Hand_with_fingers_splayed.svg/120px-Hand_with_fingers_splayed.svg.png";
+          return "../../img/papel.png";
         case 'tijeras':
-          return "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Scissors_%28hand_shape%29.svg/120px-Scissors_%28hand_shape%29.svg.png";
+          return "../../img/tijeras.webp";
         default:
           return "";
       }

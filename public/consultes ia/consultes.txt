@@ -7,20 +7,30 @@ Hola GPT, en el colegio estamos haciendo un proyecto, que estamos creando un pro
 Pol de la Viuda:
 Actua com un programador expert vull fer un joc per un centre de videojocs retro a traves dels llenguatges js, css, htmlel funcionament d'aquest videojoc reto ha de fer el seguent: Es un tres en ratlla, en el qual jugues contra una maquina, per jugar has d'apostar 20 monedes, i si guanyes, guanyes 100 moenedes podries guiar-me pas a pas, sobre com ho podria fer ? si cal crear diferents formularis ves-me guiant pas a pas. tingues en compte la imatge de com havia pensat que fos el sistemarespon-me de la forma més eficaç possible i tenint en compte tots els casos que t'he esmentat.
 
-<<<<<<< Updated upstream
+Alejandro: Le he preguntado que me hiciese un ahogado, después le he pedido que añada monedas, después que apareciese una persona por cada vez que falles, que con cada partida ganes o pierdas monedas según tu apuesta, como me avía hecho mal los brazos y las piernas le he pedido que me las haga bien y en su sitio 
 
-=======
-Alejandro: Le he preguntado que me hiciese un ahogado, después le he pedido que añada monedas, después que apareciese una persona por cada vez que falles, que con cada partida ganes o pierdas monedas según tu apuesta, como me avía hecho mal los brazos y las piernas le he pedido que me las haga bien y en su sitio 
->>>>>>> Stashed changes
-Alejandro: Le he preguntado que me hiciese un ahogado, después le he pedido que añada monedas, después que apareciese una persona por cada vez que falles, que con cada partida ganes o pierdas monedas según tu apuesta, como me avía hecho mal los brazos y las piernas le he pedido que me las haga bien y en su sitio 
 
 Alejandro: programame el juego del ahorcado que cada vez que quieras jugar tengas que pagar dos monedas y cada vez que ganes te den el doble de la cantidad que te juegas que si el numero de monedas es superio a dos sea mas dificil progresiba mente todo esto en html, css, javascrit,hazmelo como si fuese una horca y cada letra fallada vaya apareciendo una persona primero la cabeza despues el torso , la mano despues la otra mano y lo mismo con la pirnas primero una y despues la otra ,las palabra que sean aleatorias pero mino palabral que seam de siete letra y maximo dos palabras de seis letras añadelo, implementa las palabras y señalame las para que las vea y aber la dificultat de esa palabra que tu has implementado
 
+>>>
+OK Alejandro, aqui et falta comentar que la tema plataforma té un global.js on hi ha l'estructura d'usuaria X que ens ha de pasar el Pol i de la qual s'ha de cuidar a topes les pagínese i el funcionamient del joc. Ës a dir, explicant-li detalladament. "Quan l'usuari entri
+Es trozara N botons un que diluí apostar x monedas etc, I un cop triém el nivell llavors 
+Ens sortirà la paraula, etc....tot una mica més detallat ok ?"
+
 jo marc gurrera li preguntare a la ia com poder optimitrzar la meva tasca per a diferents exploradors
+
+>>> Ok Marc, intenta ser una mica més especific a l'hora de preguntar, és a dir, primer li has
+D'explicar com és la plataforma, si tens un arxiu pujar-lo per educar la ia, i un com pugis 
+El css I el js del codi ell et podrà ottimizzar millor el que vulguis fer.
 
 jo Jordi 
 
 he Diseñado una pista dividida en carriles para cada camello. Usa imágenes o sprites para los camellos y jinetes. Considera dividir la pista en tramos para facilitar el seguimiento de los progresosen HTML.
+
+>> Ok Jordi, falten bastantes especificacions. Caldria comentar el joc com funcionarà: es a dir, 
+Entrarem per primer cop I ens demandará el nombre de participamos, quanti serán controlaos per 
+La máquina i quanti per mi, tenint en compre per exemple un mínim de 4 perquè hi hagi emocio. Llaveros si guanyo, guayare x coins que s'han de mostrar en un sistema de localstorage que ens
+Ha de passar el Pol Codina
 
 Ajustes Eloi:
 Actua como un desarrollador experto en JavaScript, css, HTML.
@@ -30,7 +40,4 @@ Es decir, tendre un formulario donde tengo que poner mi nombre, y luego elegir c
 La lógica del juego tiene que ser la siguiente. Una vez elegidos cuantos camellos correrán, tendre cada x segundos un numero al azar que hará correr en un array de posiciones la posición que salga del camello que haya salido al azar.
 Cuando un camello haya recorrido cierta distancia ganara. Si he sido yo, ganaré la apuesta que haya realizado, si ha sido la maquina la perderé.
 
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes

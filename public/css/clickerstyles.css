@@ -34,7 +34,7 @@ body {
 .zombie {
     width: 150px;
     height: 150px;
-    background-image: url("img/zombie.png");
+    background-image: url("../img/zombie.png");
     background-size: cover;
     cursor: pointer;
 }
