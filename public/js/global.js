@@ -1,4 +1,4 @@
-const database = 
+const db = {
   "usuaris": [
     {
       "id": 1,
@@ -8,16 +8,7 @@ const database =
       "data_registre": "2025-03-28T12:00:00Z",
       "favorits": [2, 5],  
       "estat": "actiu"
-    },
-    {
-      "id": 2,
-      "nom": "Joan",
-      "email": "joan@example.com",
-      "password": "hashed_password",
-      "data_registre": "2025-03-28T12:00:00Z",
-      "favorits": [2, 5],  
-      "estat": "actiu"
-    },
+    }
   ],
   "jocs": [
     {
@@ -48,4 +39,7 @@ const database =
       "data": "2025-03-28T14:30:00Z"
     }
   ]
-}
+};
+
+// Exemple d'accés a les dades
+console.log(db.usuaris[0].nom); // Joan
