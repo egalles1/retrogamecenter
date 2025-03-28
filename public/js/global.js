@@ -1,4 +1,4 @@
-{
+const database = 
   "usuaris": [
     {
       "id": 1,
