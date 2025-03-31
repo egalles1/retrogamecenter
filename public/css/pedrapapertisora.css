@@ -1,0 +1,50 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 20px;
+}
+.game-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.choice-button {
+  padding: 15px 30px;
+  margin: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  border: 2px solid #333;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+}
+.choice-button:hover {
+  background-color: #ddd;
+}
+.result, .balance, .bet, .score {
+  margin: 20px;
+}
+.balance {
+  font-size: 24px;
+  font-weight: bold;
+}
+.score {
+  font-size: 18px;
+  font-weight: bold;
+}
+.buttons-container {
+  display: flex;
+  justify-content: center;
+}
+.choice-button-container {
+  margin: 10px;
+}
+.choice-image {
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+}
+.choices {
+  display: flex;
+  justify-content: center;
+}
