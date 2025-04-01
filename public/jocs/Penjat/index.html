@@ -381,9 +381,28 @@
     playAgainBtn.addEventListener("click", startGame);
     difficultySelect.addEventListener("change", startGame);
 
+    function generateKeyboard() {
+  keyboardEl.innerHTML = "";
+  for (let i = 65; i <= 90; i++) {
+    const button = document.createElement("button");
+    button.textContent = String.fromCharCode(i);
+    button.addEventListener("click", () => handleGuess(button.textContent.toLowerCase()));
+    button.setAttribute("data-key", String.fromCharCode(i).toLowerCase());
+    keyboardEl.appendChild(button);
+  }
+
+  // Agregar la letra "Ñ" manualmente
+  const buttonÑ = document.createElement("button");
+  buttonÑ.textContent = "Ñ";
+  buttonÑ.addEventListener("click", () => handleGuess("ñ"));
+  buttonÑ.setAttribute("data-key", "ñ");
+  keyboardEl.appendChild(buttonÑ);
+}
+
+
     document.addEventListener("keydown", (event) => {
       const key = event.key.toLowerCase();
-      if (/^[a-z]$/.test(key)) {
+      if (/^[a-zñ]$/.test(key)) {
         const button = document.querySelector(`button[data-key="${key}"]`);
         if (button && !button.disabled) {
           handleGuess(key);
