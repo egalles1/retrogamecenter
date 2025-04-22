@@ -36,10 +36,10 @@ function updateStats() {
 
 // Sound effects
 const sounds = {
-  move: new Audio('https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3'),
-  win: new Audio('https://assets.mixkit.co/active_storage/sfx/1435/1435-preview.mp3'),
-  draw: new Audio('https://assets.mixkit.co/active_storage/sfx/2/2-preview.mp3'),
-  lose: new Audio('https://assets.mixkit.co/active_storage/sfx/1367/1367-preview.mp3')
+  move: new Audio('../../Sonidos/click.mp3'),
+  win: new Audio('../../Sonidos/win.mp3'),
+  draw: new Audio('../../Sonidos/empate.mp3'),
+  lose: new Audio('../../Sonidos/lose.mp3')
 };
 
 function playSound(type) {
@@ -250,3 +250,46 @@ statsToggle.addEventListener('click', () => {
 
 // Initialize
 updateStats();
+
+// Función para obtener las estadísticas desde localStorage
+function obtenerEstadisticas() {
+  let estadisticas = localStorage.getItem("estadisticas");
+  if (estadisticas) {
+      return JSON.parse(estadisticas);
+  } else {
+      // Si no existen estadísticas, inicializarlas
+      let statsIniciales = { ganadas: 0, perdidas: 0, empatadas: 0, monedas: 100 };
+      localStorage.setItem("estadisticas", JSON.stringify(statsIniciales));
+      return statsIniciales;
+  }
+}
+
+// Función para actualizar las estadísticas y guardarlas en localStorage
+function actualizarEstadisticas(resultado) {
+  let stats = obtenerEstadisticas();
+
+  if (resultado === "ganada") {
+      stats.ganadas++;
+      stats.monedas += 100;
+  } else if (resultado === "perdida") {
+      stats.perdidas++;
+      stats.monedas -= 20;
+  } else if (resultado === "empatada") {
+      stats.empatadas++;
+  }
+
+  localStorage.setItem("estadisticas", JSON.stringify(stats)); // Guardar en localStorage
+  actualizarInterfaz();
+}
+
+// Función para actualizar la interfaz con los valores actuales
+function actualizarInterfaz() {
+  let stats = obtenerEstadisticas();
+  document.getElementById("ganadas").textContent = stats.ganadas;
+  document.getElementById("perdidas").textContent = stats.perdidas;
+  document.getElementById("empatadas").textContent = stats.empatadas;
+  document.getElementById("monedas").textContent = stats.monedas;
+}
+
+// Evento para cargar las estadísticas al cargar la página
+document.addEventListener("DOMContentLoaded", actualizarInterfaz);
