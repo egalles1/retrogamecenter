@@ -1,76 +1,89 @@
-let wordsPool = ["abejorro", "galaxias", "montañas", "sistema", "naranja"];
-let coins = 10, currentWord = "", guessedWord = [], attempts = 6;
+const words = {
+  easy: ["gato", "perro", "casa"],
+  medium: ["computadora", "elefante", "playa"],
+  hard: ["desarrollador", "astronauta", "electricidad"],
+  passive: ["aaaaa", "eeeee", "iiiii"]
+};
 
-const menu = document.getElementById("menu");
-const gameContainer = document.getElementById("game-container");
-const coinsEl = document.getElementById("coins");
-const wordEl = document.getElementById("word");
-const messageEl = document.getElementById("message");
-const keyboardEl = document.getElementById("keyboard");
+let selectedWord = "";
+let guessedLetters = [];
+let wrongGuesses = 0;
+let coins = 10;
+
+const wordDisplay = document.getElementById("word");
+const keyboard = document.getElementById("keyboard");
+const message = document.getElementById("message");
 const playAgainBtn = document.getElementById("play-again");
+const coinsDisplay = document.getElementById("coins");
 const difficultySelect = document.getElementById("difficulty");
 
-function startMenu() {
-  menu.style.display = "none";
-  gameContainer.style.display = "block";
-  startGame();
-}
-
-function backToMenu() {
-  menu.style.display = "block";
-  gameContainer.style.display = "none";
-}
-
 function startGame() {
-  let difficulty = difficultySelect.value;
-  if (coins < 2) {
-    messageEl.textContent = "No tienes suficientes monedas para jugar.";
-    return;
-  }
-  coins -= 2;
-  coinsEl.textContent = coins;
-
-  attempts = difficulty === "easy" ? 5 : difficulty === "medium" ? 10 : 15;
-  currentWord = wordsPool[Math.floor(Math.random() * wordsPool.length)];
-  guessedWord = Array(currentWord.length).fill("_");
-  updateWordDisplay();
-  messageEl.textContent = "";
-  generateKeyboard();
+  const difficulty = difficultySelect.value;
+  const wordList = words[difficulty];
+  selectedWord = wordList[Math.floor(Math.random() * wordList.length)];
+  guessedLetters = [];
+  wrongGuesses = 0;
+  message.textContent = "";
   playAgainBtn.style.display = "none";
+  updateWordDisplay();
+  generateKeyboard();
+  updateFigure();
 }
 
 function updateWordDisplay() {
-  wordEl.textContent = guessedWord.join(" ");
+  const display = selectedWord
+    .split("")
+    .map(letter => (guessedLetters.includes(letter) ? letter : "_"))
+    .join(" ");
+  wordDisplay.textContent = display;
+
+  if (!display.includes("_")) {
+    message.textContent = "¡Ganaste!";
+    coins += 5;
+    coinsDisplay.textContent = coins;
+    playAgainBtn.style.display = "block";
+  }
 }
 
 function generateKeyboard() {
-  keyboardEl.innerHTML = "";
+  keyboard.innerHTML = "";
   for (let i = 65; i <= 90; i++) {
-    let button = document.createElement("button");
-    button.textContent = String.fromCharCode(i);
-    button.addEventListener("click", () => handleGuess(button.textContent.toLowerCase()));
-    keyboardEl.appendChild(button);
+    const letter = String.fromCharCode(i).toLowerCase();
+    const btn = document.createElement("button");
+    btn.textContent = letter;
+    btn.onclick = () => handleGuess(letter, btn);
+    keyboard.appendChild(btn);
   }
 }
 
-function handleGuess(letter) {
-  if (currentWord.includes(letter)) {
-    currentWord.split("").forEach((char, i) => {
-      if (char === letter) guessedWord[i] = letter;
-    });
+function handleGuess(letter, button) {
+  button.disabled = true;
+  if (selectedWord.includes(letter)) {
+    guessedLetters.push(letter);
     updateWordDisplay();
-    if (!guessedWord.includes("_")) endGame(true);
   } else {
-    attempts--;
-    if (attempts === 0) endGame(false);
+    wrongGuesses++;
+    updateFigure();
+    if (wrongGuesses === 6) {
+      message.textContent = `Perdiste. La palabra era: ${selectedWord}`;
+      coins = Math.max(0, coins - 3);
+      coinsDisplay.textContent = coins;
+      playAgainBtn.style.display = "block";
+    }
   }
 }
 
-function endGame(win) {
-  messageEl.textContent = win ? "¡Ganaste!" : `Perdiste. La palabra era: ${currentWord}`;
-  playAgainBtn.style.display = "inline-block";
-  keyboardEl.innerHTML = "";
+function updateFigure() {
+  const parts = document.querySelectorAll(".figure > div");
+  parts.forEach((part, index) => {
+    part.style.display = index < wrongGuesses ? "block" : "none";
+  });
 }
 
 playAgainBtn.addEventListener("click", startGame);
 difficultySelect.addEventListener("change", startGame);
+
+window.addEventListener("load", () => {
+  coinsDisplay.textContent = coins;
+  startGame();
+});
