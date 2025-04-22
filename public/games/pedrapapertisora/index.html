@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Piedra, Papel o Tijeras - Apuestas</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <button onclick="mostrarReglas()" class="how-to-play-button">¿Cómo jugar?</button>
+
+  <div class="login-container" id="loginContainer">
+    <h2>Iniciar sesión</h2>
+    <input type="text" id="username" placeholder="Nombre de usuario">
+    <button onclick="iniciarSesion()">Entrar</button>
+  </div>
+
+  <div class="game-container" id="gameContainer">
+    <h1>Piedra, Papel o Tijeras - Apuestas</h1>
+
+    <div class="score">
+      <p>
+        <strong class="victory-count">Victorias: <span id="wins">0</span></strong> |
+        <strong class="defeat-count">Derrotas: <span id="losses">0</span></strong>
+      </p>
+    </div>
+
+    <div class="balance">
+      <p>Saldo: <span id="balance">100</span> monedas</p>
+    </div>
+
+    <div class="bet">
+      <label for="betAmount">Apuesta: </label>
+      <input type="number" id="betAmount" min="1" max="100" value="10">
+    </div>
+
+    <div class="buttons-container">
+      <div class="choice-button-container">
+        <button class="choice-button" onclick="play('piedra')">
+          <img src="../../img/piedra.png" width="300" height="300">
+        </button>
+      </div>
+      <div class="choice-button-container">
+        <button class="choice-button" onclick="play('papel')">
+          <img src="../../img/papel.png" width="300" height="300">
+        </button>
+      </div>
+      <div class="choice-button-container">
+        <button class="choice-button" onclick="play('tijeras')">
+          <img src="../../img/tijeras.webp" width="300" height="300">
+        </button>
+      </div>
+    </div>
+
+    <div class="result">
+      <p id="gameResult"></p>
+    </div>
+
+    <div class="choices">
+      <div>
+        <p><strong>Tú:</strong></p>
+        <img id="playerChoiceImage" src="../../img/piedra.png" alt="Elección del jugador" class="choice-image">
+      </div>
+      <div>
+        <p><strong>Máquina:</strong></p>
+        <img id="computerChoiceImage" src="../../img/piedra.png" alt="Elección de la máquina" class="choice-image">
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

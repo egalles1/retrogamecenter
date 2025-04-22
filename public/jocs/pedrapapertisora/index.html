@@ -1,73 +1,174 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Piedra, Papel o Tijeras - Apuestas</title>
+<<<<<<< Updated upstream
   <link rel="stylesheet" href="../../css/pedrapapertisora.css">
+=======
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+      background: linear-gradient(135deg, #2E3192, #1BFFFF);
+      color: #fff;
+    }
+    .game-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .choice-button {
+      padding: 15px 30px;
+      margin: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      border: 2px solid #fff;
+      border-radius: 5px;
+      background-color: #d0f0ff;
+      color: #333;
+    }
+    .choice-button:hover {
+      background-color: #a0e0ff;
+    }
+    .result, .balance, .bet, .score {
+      margin: 20px;
+    }
+    .balance {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .score {
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .buttons-container {
+      display: flex;
+      justify-content: center;
+    }
+    .choice-button-container {
+      margin: 10px;
+    }
+    .choice-image {
+      width: 150px;
+      height: 150px;
+      margin: 10px;
+    }
+    .choices {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 50px;
+      margin-top: 20px;
+    }
+    input[type="text"] {
+      padding: 10px;
+      font-size: 16px;
+      width: 200px;
+    }
+
+    /* Estilo del botón ¿Cómo jugar? */
+    #howToPlayButton {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 15px 30px;
+      font-size: 16px;
+      background: linear-gradient(45deg, #ff6b6b, #f06292);
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    #howToPlayButton:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+      background: linear-gradient(45deg, #ff3d3d, #e91e63);
+    }
+  </style>
+>>>>>>> Stashed changes
 </head>
 <body>
 
-  <h1>Piedra, Papel o Tijeras - Apuestas</h1>
-
-  <!-- Marcadores de victorias y derrotas -->
-  <div class="score">
-    <p><strong>Victorias:</strong> <span id="wins">0</span> | <strong>Derrotas:</strong> <span id="losses">0</span></p>
+  <!-- LOGIN -->
+  <div id="loginContainer">
+    <h2>Inicia sesión para jugar</h2>
+    <input type="text" id="usernameInput" placeholder="Escribe tu nombre">
+    <br><br>
+    <button onclick="iniciarSesion()" class="choice-button">Entrar</button>
   </div>
 
-  <!-- Saldo de monedas -->
-  <div class="balance">
-    <p>Saldo: <span id="balance">100</span> monedas</p>
-  </div>
-  
-  <!-- Apuesta -->
-  <div class="bet">
-    <label for="betAmount">Apuesta: </label>
-    <input type="number" id="betAmount" min="1" max="100" value="10">
+  <!-- JUEGO -->
+  <div id="gameContainer" style="display: none;">
+    <h1>Piedra, Papel o Tijeras - Apuestas</h1>
+
+    <p><strong>Jugador:</strong> <span id="playerName"></span></p>
+
+    <div class="score">
+      <p><strong>Victorias:</strong> <span id="wins">0</span> | <strong>Derrotas:</strong> <span id="losses">0</span></p>
+    </div>
+
+    <div class="balance">
+      <p>Saldo: <span id="balance">100</span> monedas</p>
+    </div>
+    
+    <div class="bet">
+      <label for="betAmount">Apuesta: </label>
+      <input type="number" id="betAmount" min="1" max="100" value="10">
+    </div>
+
+    <div class="buttons-container">
+      <div class="choice-button-container">
+        <button class="choice-button" onclick="play('piedra')">
+          <img src="../../img/piedra.png" width="300" height="300">
+        </button>
+      </div>
+      <div class="choice-button-container">
+        <button class="choice-button" onclick="play('papel')">
+          <img src="../../img/papel.png" width="300" height="300">
+        </button>
+      </div>
+      <div class="choice-button-container">
+        <button class="choice-button" onclick="play('tijeras')">
+          <img src="../../img/tijeras.webp" width="300" height="300">
+        </button>
+      </div>
+    </div>
+
+    <div class="result">
+      <p id="gameResult"></p>
+    </div>
+
+    <div class="choices">
+      <div>
+        <p><strong>Tú:</strong></p>
+        <img id="playerChoiceImage" src="../../img/piedra.png" alt="Elección del jugador" class="choice-image">
+      </div>
+      <div>
+        <p><strong>Máquina:</strong></p>
+        <img id="computerChoiceImage" src="../../img/piedra.png" alt="Elección de la máquina" class="choice-image">
+      </div>
+    </div>
   </div>
 
-  <!-- Opciones para elegir (Piedra, Papel, Tijeras) -->
-  <div class="buttons-container">
-    <div class="choice-button-container">
-      <button class="choice-button" onclick="play('piedra')">
-        <img src="../../img/piedra.png" width="300" height="300">
-      </button>
-    </div>
-    <div class="choice-button-container">
-      <button class="choice-button" onclick="play('papel')">
-        <img src="../../img/papel.png" width="300" height="300">
-      </button>
-    </div>
-    <div class="choice-button-container">
-      <button class="choice-button" onclick="play('tijeras')">
-        <img src="../../img/tijeras.webp" width="300" height="300">
-      </button>
-    </div>
-  </div>
+  <!-- AUDIOS -->
+  <audio id="audioGanar" src="../../audio/ganar.mp3"></audio>
+  <audio id="audioPerder" src="../../audio/perder.mp3"></audio>
 
-  <!-- Resultado del juego -->
-  <div class="result">
-    <p id="gameResult"></p>
-  </div>
-
-  <!-- Elecciones del jugador y de la máquina -->
-  <div class="choices">
-    <div>
-      <p><strong>Tú:</strong></p>
-      <img id="playerChoiceImage" src="" alt="Elección del jugador" class="choice-image">
-    </div>
-    <div>
-      <p><strong>Máquina:</strong></p>
-      <img id="computerChoiceImage" src="" alt="Elección de la máquina" class="">
-    </div>
-  </div>
+  <!-- Botón ¿Cómo jugar? -->
+  <button id="howToPlayButton" onclick="mostrarReglas()">¿Cómo jugar?</button>
 
   <script>
-    let balance = 100;  // Saldo inicial del jugador
-    let wins = 0;       // Contador de victorias
-    let losses = 0;     // Contador de derrotas
+    let balance = 100;
+    let wins = 0;
+    let losses = 0;
 
-    // Función para jugar
     function play(playerChoice) {
       const betAmount = parseInt(document.getElementById('betAmount').value);
       if (betAmount > balance) {
@@ -75,15 +176,12 @@
         return;
       }
 
-      // Opciones posibles
       const choices = ['piedra', 'papel', 'tijeras'];
       const computerChoice = choices[Math.floor(Math.random() * 3)];
 
-      // Actualizar las imágenes de las elecciones
       document.getElementById('playerChoiceImage').src = getImageForChoice(playerChoice);
       document.getElementById('computerChoiceImage').src = getImageForChoice(computerChoice);
 
-      // Resultados del juego
       let result = '';
       if (playerChoice === computerChoice) {
         result = '¡Empate!';
@@ -93,34 +191,55 @@
         (playerChoice === 'tijeras' && computerChoice === 'papel')
       ) {
         result = `¡Ganaste! La máquina eligió ${computerChoice}. Doble de tu apuesta: +${betAmount * 2} monedas.`;
-        balance += betAmount;  // El jugador gana el doble de su apuesta
-        wins++;                // Aumenta el contador de victorias
+        balance += betAmount;
+        wins++;
+        document.getElementById('audioGanar').play();
       } else {
         result = `Perdiste. La máquina eligió ${computerChoice}.`;
-        balance -= betAmount;  // El jugador pierde su apuesta
-        losses++;              // Aumenta el contador de derrotas
+        balance -= betAmount;
+        losses++;
+        document.getElementById('audioPerder').play();
       }
 
-      // Actualiza el saldo y el resultado
       document.getElementById('balance').innerText = balance;
       document.getElementById('gameResult').innerText = result;
       document.getElementById('wins').innerText = wins;
       document.getElementById('losses').innerText = losses;
     }
 
-    // Función para obtener la imagen correspondiente a la elección
     function getImageForChoice(choice) {
-      switch (choice) {
-        case 'piedra':
-          return "../../img/piedra.png";
-        case 'papel':
-          return "../../img/papel.png";
-        case 'tijeras':
-          return "../../img/tijeras.webp";
-        default:
-          return "";
+      if (choice === 'tijeras') {
+        return "../../img/tijeras.webp";
       }
+      return `../../img/${choice}.png`;
     }
+
+    function mostrarReglas() {
+      alert("Bienvenido a Piedra, Papel o Tijeras - Apuestas!\n\nReglas:\n- Elige piedra, papel o tijeras.\n- Ingresa una cantidad de monedas para apostar.\n- Ganas si tu elección vence a la de la máquina.\n- Si ganas, duplicas tu apuesta.\n- Si pierdes, pierdes tu apuesta.\n- El juego termina si te quedas sin saldo.");
+    }
+
+    function iniciarSesion() {
+      const username = document.getElementById('usernameInput').value.trim();
+      if (username === '') {
+        alert('Por favor, escribe un nombre para jugar.');
+        return;
+      }
+
+      localStorage.setItem('username', username);
+
+      document.getElementById('loginContainer').style.display = 'none';
+      document.getElementById('gameContainer').style.display = 'block';
+      document.getElementById('playerName').innerText = username;
+    }
+
+    window.onload = () => {
+      const savedUsername = localStorage.getItem('username');
+      if (savedUsername) {
+        document.getElementById('loginContainer').style.display = 'none';
+        document.getElementById('gameContainer').style.display = 'block';
+        document.getElementById('playerName').innerText = savedUsername;
+      }
+    };
   </script>
 
 </body>
