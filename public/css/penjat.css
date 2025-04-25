@@ -98,7 +98,7 @@ select {
   bottom: 10px;
   left: 50px;
   width: 10px;
-  height: 200px;
+  height: 290px;
 }
 
 .horizontal {
@@ -111,7 +111,7 @@ select {
 .rope {
   top: 10px;
   left: 140px;
-  width: 2px;
+  width: 5px;
   height: 30px;
   background-color: #888;
 }
@@ -126,6 +126,9 @@ select {
   height: 30px;
   border-radius: 50%;
   background-color: #333;
+  position: absolute;
+  left: 127.5px;
+  top: 40px;
 }
 
 .body {
@@ -133,13 +136,18 @@ select {
   left: 13px;
   width: 5px;
   height: 50px;
+  position: absolute;
+  left: 139px;
+  top: 60px;
 }
 
 .arm.left {
   top: 30px;
-  left: -20px;
   width: 30px;
   height: 5px;
+  position: absolute;
+  left: 110px;
+  top: 75px;
 }
 
 .arm.right {
@@ -147,6 +155,9 @@ select {
   left: 20px;
   width: 30px;
   height: 5px;
+  position: absolute;
+  left: 140px;
+  top: 75px;
 }
 
 .leg.left {
@@ -154,6 +165,11 @@ select {
   left: -10px;
   width: 25px;
   height: 5px;
+  position: absolute;
+  transform: rotate(45deg);
+  transform-origin: left;
+  left: 142px;
+  top: 105px;
 }
 
 .leg.right {
@@ -161,4 +177,9 @@ select {
   left: 15px;
   width: 25px;
   height: 5px;
+  position: absolute;
+  transform: rotate(125deg);
+  transform-origin: right;
+  left: 103px;
+  top: 122px;
 }
