@@ -80,10 +80,36 @@ function updateFigure() {
   });
 }
 
+function generateKeyboard() {
+  keyboard.innerHTML = "";
+  const letters = "abcdefghijklmnopqrstuvwxyzñ";
+  for (let i = 0; i < letters.length; i++) {
+    const letter = letters[i];
+    const btn = document.createElement("button");
+    btn.textContent = letter;
+    btn.id = `key-${letter}`;
+    btn.onclick = () => handleGuess(letter, btn);
+    keyboard.appendChild(btn);
+  }
+}
+
+
 playAgainBtn.addEventListener("click", startGame);
 difficultySelect.addEventListener("change", startGame);
 
 window.addEventListener("load", () => {
   coinsDisplay.textContent = coins;
   startGame();
+});
+
+document.addEventListener("keydown", (event) => {
+  const letter = event.key.toLowerCase();
+  const validLetters = "abcdefghijklmnopqrstuvwxyzñ";
+
+  if (validLetters.includes(letter) && !guessedLetters.includes(letter) && wrongGuesses < 6) {
+    const button = document.getElementById(`key-${letter}`);
+    if (button && !button.disabled) {
+      handleGuess(letter, button);
+    }
+  }
 });
