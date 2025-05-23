@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Carrera de Camellos</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #fceabb, #f8b500);
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    h1, h2 {
+      color: #4a2c0a;
+    }
+
+    label {
+      display: block;
+      margin: 10px;
+    }
+
+    input, select, button {
+      font-size: 1rem;
+      padding: 8px;
+      margin-top: 5px;
+    }
+
+    button {
+      background-color: #8b5e3c;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #a97142;
+    }
+
+    .race-track {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      margin: 30px auto;
+      width: 90%;
+      max-width: 800px;
+      position: relative;
+    }
+
+    .track-line {
+      display: flex;
+      align-items: center;
+      height: 60px;
+      width: 100%;
+      position: relative;
+      margin-bottom: 10px;
+      background-color: rgba(255, 255, 255, 0.4);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 2px solid #8b5e3c;
+    }
+
+    .camel {
+      font-size: 2rem;
+      position: absolute;
+      left: 0;
+      transition: transform 0.5s ease;
+    }
+
+    .finish-line {
+      position: absolute;
+      right: 0;
+      height: 100%;
+      width: 5px;
+      background-color: red;
+    }
+
+    .player-camel {
+      text-shadow: 0 0 5px #fff, 0 0 10px gold;
+    }
+  </style>
+</head>
+<body>
+  <div id="start-screen">
+    <h1>🏜️ Carrera de Camellos 🐪</h1>
+    <label>Nombre: <input type="text" id="player-name"></label>
+    <label>Camellos en carrera (2-10): <input type="number" id="num-camels" min="2" max="10" onchange="updateCamelSelect()"></label>
+    <label>Selecciona tu camello:
+      <select id="player-camel-select"></select>
+    </label>
+    <button onclick="startRace()">Iniciar Carrera</button>
+  </div>
+
+  <div id="race-screen" style="display: none;">
+    <h2 id="race-title"></h2>
+    <div id="race-track" class="race-track"></div>
+    <button onclick="startGame()">Comenzar</button>
+    <button id="restart-button" onclick="restartGame()" style="display: none; margin-top: 20px;">Volver al inicio</button>
+ 
+  </div>
+
+  <script>
+    let camels = [];
+    let playerCamel = 0;
+    let raceInterval;
+    const trackLength = 700;
+
+    function updateCamelSelect() {
+      const select = document.getElementById('player-camel-select');
+      const num = parseInt(document.getElementById('num-camels').value);
+      select.innerHTML = '';
+      if (!isNaN(num) && num >= 2 && num <= 10) {
+        for (let i = 0; i < num; i++) {
+          const option = document.createElement('option');
+          option.value = i;
+          option.textContent = `Camello ${i + 1}`;
+          select.appendChild(option);
+        }
+      }
+    }
+
+    function startRace() {
+      const playerName = document.getElementById('player-name').value;
+      const numCamels = parseInt(document.getElementById('num-camels').value);
+      playerCamel = parseInt(document.getElementById('player-camel-select').value);
+
+      if (!playerName || isNaN(numCamels) || numCamels < 2 || numCamels > 10) {
+        alert('Ingresa un nombre y elige entre 2 y 10 camellos.');
+        return;
+      }
+
+      document.getElementById('start-screen').style.display = 'none';
+      document.getElementById('race-screen').style.display = 'block';
+      document.getElementById('race-title').innerText = `🏁 ¡Vamos ${playerName}! ¡Tu camello es el número ${playerCamel + 1}!`;
+
+      const raceTrack = document.getElementById('race-track');
+      raceTrack.innerHTML = '';
+      camels = [];
+
+      for (let i = 0; i < numCamels; i++) {
+        const camel = { id: i, position: 0 };
+        camels.push(camel);
+
+        const trackLine = document.createElement('div');
+        trackLine.className = 'track-line';
+
+        const camelDiv = document.createElement('div');
+        camelDiv.className = 'camel';
+        camelDiv.id = `camel-${i}`;
+        camelDiv.innerHTML = '🐪';
+
+        if (i === playerCamel) {
+          camelDiv.classList.add('player-camel');
+        }
+
+        const finish = document.createElement('div');
+        finish.className = 'finish-line';
+
+        trackLine.appendChild(camelDiv);
+        trackLine.appendChild(finish);
+        raceTrack.appendChild(trackLine);
+      }
+    }
+
+    function startGame() {
+      raceInterval = setInterval(moveCamels, 100);
+    }
+
+    function moveCamels() {
+      const randomCamel = Math.floor(Math.random() * camels.length);
+      const distance = Math.random() * 20 + 5;
+      camels[randomCamel].position += distance;
+
+      const camelElement = document.getElementById(`camel-${randomCamel}`);
+      camelElement.style.transform = `translateX(${camels[randomCamel].position}px)`;
+
+      if (camels[randomCamel].position >= trackLength) {
+        clearInterval(raceInterval);
+        announceWinner(randomCamel);
+      }
+    }
+
+    function announceWinner(winner) {
+      if (winner === playerCamel) {
+        alert('🎉 ¡Felicidades! Tu camello ganó la carrera. 🐪🏆');
+      } else {
+        alert(`😢 Perdiste, el camello número ${winner + 1} ganó.`);
+      }
+      document.getElementById('restart-button').style.display = 'inline-block';
+    }
+    function restartGame() {
+      clearInterval(raceInterval);
+      document.getElementById('race-screen').style.display = 'none';
+      document.getElementById('restart-button').style.display = 'none';
+      document.getElementById('start-screen').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
