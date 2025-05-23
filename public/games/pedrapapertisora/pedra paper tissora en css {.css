@@ -1,0 +1,119 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #2E3192, #1BFFFF);
+  color: #fff;
+}
+
+.login-container {
+  margin-bottom: 30px;
+}
+
+.login-container input {
+  padding: 10px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.login-container button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #00aaff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.game-container {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+
+.choice-button {
+  padding: 15px 30px;
+  margin: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  background-color: #d0f0ff;
+  color: #333;
+}
+
+.choice-button:hover {
+  background-color: #a0e0ff;
+}
+
+.result, .balance, .bet, .score {
+  margin: 20px;
+}
+
+.balance {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.score {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.victory-count {
+  color: #00ff00;
+}
+
+.defeat-count {
+  color: #ff4c4c;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: center;
+}
+
+.choice-button-container {
+  margin: 10px;
+}
+
+.choice-image {
+  width: 150px;
+  height: 150px;
+  margin: 10px;
+}
+
+.choices {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  margin-top: 20px;
+}
+
+.how-to-play-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #007BFF;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.how-to-play-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+
+
+

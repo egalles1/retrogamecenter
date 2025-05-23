@@ -1,35 +1,35 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Piedra, Papel o Tijeras - Apuestas</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="../../css/pedrapapertisora.css">
 </head>
 <body>
 
-  <button onclick="mostrarReglas()" class="how-to-play-button">¿Cómo jugar?</button>
-
-  <div class="login-container" id="loginContainer">
-    <h2>Iniciar sesión</h2>
-    <input type="text" id="username" placeholder="Nombre de usuario">
-    <button onclick="iniciarSesion()">Entrar</button>
+  <!-- LOGIN -->
+  <div id="loginContainer">
+    <h2>Inicia sesión para jugar</h2>
+    <input type="text" id="usernameInput" placeholder="Escribe tu nombre">
+    <br><br>
+    <button onclick="iniciarSesion()" class="choice-button">Entrar</button>
   </div>
 
-  <div class="game-container" id="gameContainer">
+  <!-- JUEGO -->
+  <div id="gameContainer" style="display: none;">
     <h1>Piedra, Papel o Tijeras - Apuestas</h1>
 
+    <p><strong>Jugador:</strong> <span id="playerName"></span></p>
+
     <div class="score">
-      <p>
-        <strong class="victory-count">Victorias: <span id="wins">0</span></strong> |
-        <strong class="defeat-count">Derrotas: <span id="losses">0</span></strong>
-      </p>
+      <p><strong>Victorias:</strong> <span id="wins">0</span> | <strong>Derrotas:</strong> <span id="losses">0</span></p>
     </div>
 
     <div class="balance">
       <p>Saldo: <span id="balance">100</span> monedas</p>
     </div>
-
+    
     <div class="bet">
       <label for="betAmount">Apuesta: </label>
       <input type="number" id="betAmount" min="1" max="100" value="10">
@@ -69,6 +69,93 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <!-- AUDIOS -->
+  <audio id="audioGanar" src="../../audio/ganar.mp3"></audio>
+  <audio id="audioPerder" src="../../audio/perder.mp3"></audio>
+
+  <!-- Botón ¿Cómo jugar? -->
+  <button id="howToPlayButton" onclick="mostrarReglas()">¿Cómo jugar?</button>
+
+  <script>
+    let balance = 100;
+    let wins = 0;
+    let losses = 0;
+
+    function play(playerChoice) {
+      const betAmount = parseInt(document.getElementById('betAmount').value);
+      if (betAmount > balance) {
+        alert('No tienes suficientes monedas para esa apuesta.');
+        return;
+      }
+
+      const choices = ['piedra', 'papel', 'tijeras'];
+      const computerChoice = choices[Math.floor(Math.random() * 3)];
+
+      document.getElementById('playerChoiceImage').src = getImageForChoice(playerChoice);
+      document.getElementById('computerChoiceImage').src = getImageForChoice(computerChoice);
+
+      let result = '';
+      if (playerChoice === computerChoice) {
+        result = '¡Empate!';
+      } else if (
+        (playerChoice === 'piedra' && computerChoice === 'tijeras') ||
+        (playerChoice === 'papel' && computerChoice === 'piedra') ||
+        (playerChoice === 'tijeras' && computerChoice === 'papel')
+      ) {
+        result = `¡Ganaste! La máquina eligió ${computerChoice}. Doble de tu apuesta: +${betAmount * 2} monedas.`;
+        balance += betAmount;
+        wins++;
+        document.getElementById('audioGanar').play();
+      } else {
+        result = `Perdiste. La máquina eligió ${computerChoice}.`;
+        balance -= betAmount;
+        losses++;
+        document.getElementById('audioPerder').play();
+      }
+
+      document.getElementById('balance').innerText = balance;
+      document.getElementById('gameResult').innerText = result;
+      document.getElementById('wins').innerText = wins;
+      document.getElementById('losses').innerText = losses;
+    }
+
+    function getImageForChoice(choice) {
+      if (choice === 'tijeras') {
+        return "../../img/tijeras.webp";
+      }
+      return `../../img/${choice}.png`;
+    }
+
+    function mostrarReglas() {
+      alert("Bienvenido a Piedra, Papel o Tijeras - Apuestas!\n\nReglas:\n- Elige piedra, papel o tijeras.\n- Ingresa una cantidad de monedas para apostar.\n- Ganas si tu elección vence a la de la máquina.\n- Si ganas, duplicas tu apuesta.\n- Si pierdes, pierdes tu apuesta.\n- El juego termina si te quedas sin saldo.");
+    }
+
+    function iniciarSesion() {
+      const username = document.getElementById('usernameInput').value.trim();
+      if (username === '') {
+        alert('Por favor, escribe un nombre para jugar.');
+        return;
+      }
+
+      localStorage.setItem('username', username);
+
+      document.getElementById('loginContainer').style.display = 'none';
+      document.getElementById('gameContainer').style.display = 'block';
+      document.getElementById('playerName').innerText = username;
+    }
+
+    window.onload = () => {
+      const savedUsername = localStorage.getItem('username');
+      if (savedUsername) {
+        document.getElementById('loginContainer').style.display = 'none';
+        document.getElementById('gameContainer').style.display = 'block';
+        document.getElementById('playerName').innerText = savedUsername;
+      }
+    };
+  </script>
+
 </body>
 </html>
+
+
+

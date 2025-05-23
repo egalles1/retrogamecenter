@@ -2,6 +2,8 @@ body {
   font-family: Arial, sans-serif;
   text-align: center;
   padding: 20px;
+  background: linear-gradient(135deg, #2E3192, #1BFFFF);
+  color: #fff;
 }
 .game-container {
   display: flex;
