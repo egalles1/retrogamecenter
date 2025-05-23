@@ -69,6 +69,15 @@ const inicialitzarDades = () => {
                 url : "/nom del joc/index.html",
                 categoria: "la categoria del joc"
               },
+              {
+                id: 7,
+                nom: "Memory",
+                creadors: "Pol",
+                minidescripcio:"Descripcio de 1 linea o 2 aprox" ,
+                Descripcio: "Descripcio completa del joc y mecaniques",
+                url : "/nom del joc/index.html",
+                categoria: "la categoria del joc"
+              },
           ],
           partides: [
             {

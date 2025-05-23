@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Joc de Memòria</title>
+  <link rel="stylesheet" href="../../css/memory.css">
+</head>
+<body>
+  <h1 id="game-title">🃏 Memory Poker</h1>
+  <div id="game-board"></div>
+</body>
+<body>
+
+  <div id="stats">
+  <span>⏱️ Temps: <span id="time">0</span> s</span>
+  <span>🎯 Moviments: <span id="moves">0</span></span>
+  <span>✅ Encerts: <span id="matches">0</span></span>
+</div>
+
+<!-- 🔁 BOTÓ DE REINICI -->
+<button id="reset-btn">🔄 Reinicia</button>
+<div id="difficulty-select">
+  <button onclick="startGame('easy')">Fàcil</button>
+  <button onclick="startGame('medium')">Mitjà</button>
+  <button onclick="startGame('hard')">Difícil</button>
+</div>
+
+
+<div id="game-board"></div>
+  <div id="message" style="margin-top: 15px; font-size: 1.3rem; color: lime;"></div>
+
+  <div class="card-inner">
+  <div class="card-front">A♠</div>  <!-- Contingut ocultat -->
+  <div class="card-back">?</div>    <!-- El que es veu inicialment -->
+</div>
+
+<div id="theme-select">
+  <button onclick="selectTheme('poker')">🃏 Poker</button>
+  <button onclick="selectTheme('animals')">🐶 Animals</button>
+  <button onclick="selectTheme('colors')">🌈 Colors</button>
+  <button onclick="selectTheme('emojis')">👾 Emojis</button>
+</div>
+
+
+</body>
+  <script src="../../js/memory.js"></script>
+
+</html>
