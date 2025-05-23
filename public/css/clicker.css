@@ -1,0 +1,196 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body {
+    text-align: center;
+    background-color: #2b2b2b;
+    color: limegreen;
+    font-family: "Press Start 2P", cursive;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+.title { margin-bottom: 20px; }
+.stats { font-size: 18px; margin-bottom: 10px; }
+
+.energy-container {
+    width: 200px;
+    height: 20px;
+    background-color: black;
+    border: 2px solid limegreen;
+    margin-top: 10px;
+}
+
+.energy-bar {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to right, limegreen, yellow, red);
+    transition: width 0.2s;
+}
+
+.game-container { position: relative; }
+.zombie {
+    width: 150px;
+    height: 150px;
+    background-image: url("../img_clicker/zombie.png");
+    background-size: cover;
+    cursor: pointer;
+}
+
+.shop-container { position: absolute; right: 20px; top: 50px; }
+.shop-button {
+    padding: 5px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: "Press Start 2P", cursive;
+}
+.click-counter {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: black;
+    color: limegreen;
+    padding: 5px 10px;
+    border: 2px solid limegreen;
+    font-size: 16px;
+    font-family: "Press Start 2P", cursive;
+}
+
+.shop {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 15px;
+    border-radius: 12px;
+    margin-top: 10px;
+    max-width: 500px;
+    font-family: Arial, sans-serif;
+}
+
+.shop-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    margin: 8px 0;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    border: 2px solid #444;
+}
+
+.shop-item:hover {
+    background-color: #333;
+    transform: scale(1.02);
+    border-color: #00ff88;
+}
+
+.shop-item img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.shop-item.locked {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.shop {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 15px;
+    border-radius: 12px;
+    margin-top: 10px;
+    max-width: 500px;
+    font-family: Arial, sans-serif;
+
+    /* Scroll */
+    max-height: 300px; /* Limita la altura visible */
+    overflow-y: auto;
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #00ff88 #222;
+}
+
+/* Scroll bonito para Chrome/Edge/Safari */
+.shop::-webkit-scrollbar {
+    width: 8px;
+}
+
+.shop::-webkit-scrollbar-thumb {
+    background-color: #00ff88;
+    border-radius: 8px;
+}
+
+.shop::-webkit-scrollbar-track {
+    background: #222;
+    border-radius: 8px;
+}
+    
+.boss-alert {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: red;
+    color: white;
+    padding: 20px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.boss-screen {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.boss-health-container {
+    width: 300px;
+    height: 25px;
+    background-color: black;
+    border: 2px solid red;
+    margin-bottom: 20px;
+}
+
+.boss-health-bar {
+    height: 100%;
+    width: 100%;
+    background-color: red;
+    transition: width 0.2s;
+}
+
+.boss {
+    width: 200px;
+    height: 200px;
+    background-image: url("../img_clicker/zombie.png");
+    background-size: cover;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    animation: moveBoss 2s infinite alternate;
+}
+
+@keyframes moveBoss {
+    0% { left: 30%; }
+    100% { left: 70%; }
+}
+
+body {
+    background-image: url("img/FondoCiudad.png");
+    background-size: cover;
+    background-position: center;
+    transition: background-image 1s ease-in-out;
+}
