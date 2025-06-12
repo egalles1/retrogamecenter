@@ -1,0 +1,230 @@
+/* Reseteo de estilos por defecto del navegador */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Incluye padding y border en el ancho total */
+}
+
+/* Estilos del cuerpo de la página */
+body {
+    font-family: 'Arial', sans-serif; /* Fuente de texto */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Gradiente de fondo */
+    min-height: 100vh; /* Altura mínima del 100% de la ventana */
+    display: flex; /* Usar flexbox para centrar */
+    align-items: center; /* Centrar verticalmente */
+    justify-content: center; /* Centrar horizontalmente */
+    color: white; /* Color de texto blanco */
+    user-select: none; /* Evitar selección de texto */
+}
+
+/* Contenedor principal del juego */
+.game-container {
+    background: rgba(255, 255, 255, 0.1); /* Fondo semi-transparente */
+    backdrop-filter: blur(20px); /* Efecto de desenfoque de fondo */
+    border-radius: 20px; /* Bordes redondeados */
+    padding: 2rem; /* Espaciado interno */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); /* Sombra */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Borde sutil */
+    max-width: 800px; /* Ancho máximo */
+    width: 90%; /* Ancho responsive */
+    text-align: center; /* Centrar texto */
+}
+
+/* Título principal */
+h1 {
+    font-size: 2.5rem; /* Tamaño de fuente grande */
+    margin-bottom: 1.5rem; /* Margen inferior */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Sombra de texto */
+    background: linear-gradient(45deg, #ff6b6b, #feca57); /* Gradiente para el texto */
+    -webkit-background-clip: text; /* Aplicar gradiente solo al texto */
+    -webkit-text-fill-color: transparent; /* Hacer el texto transparente para mostrar el gradiente */
+    background-clip: text;
+}
+
+/* Panel de información superior */
+.info-panel {
+    display: flex; /* Usar flexbox */
+    justify-content: space-around; /* Distribuir espacios uniformemente */
+    margin: 1.5rem 0; /* Margen vertical */
+    flex-wrap: wrap; /* Permitir que los elementos se envuelvan */
+    gap: 1rem; /* Espacio entre elementos */
+}
+
+/* Elementos individuales del panel de información */
+.info-panel > div {
+    background: rgba(255, 255, 255, 0.2); /* Fondo semi-transparente */
+    padding: 0.8rem 1.2rem; /* Espaciado interno */
+    border-radius: 10px; /* Bordes redondeados */
+    backdrop-filter: blur(10px); /* Efecto de desenfoque */
+    font-weight: bold; /* Texto en negrita */
+    min-width: 120px; /* Ancho mínimo */
+}
+
+/* Números destacados en el panel */
+#score, #timer, #reaction {
+    color: #feca57; /* Color amarillo dorado */
+    font-size: 1.2rem; /* Tamaño de fuente mayor */
+}
+
+/* Área principal de juego */
+.game-area {
+    position: relative; /* Posicionamiento relativo para objetivos absolutos */
+    width: 100%; /* Ancho completo */
+    height: 400px; /* Altura fija */
+    background: rgba(255, 255, 255, 0.1); /* Fondo semi-transparente */
+    border-radius: 15px; /* Bordes redondeados */
+    margin: 2rem 0; /* Margen vertical */
+    border: 2px dashed rgba(255, 255, 255, 0.3); /* Borde punteado */
+    overflow: hidden; /* Ocultar contenido que se desborde */
+}
+
+/* Objetivos clickeables que aparecen en el juego */
+.target {
+    position: absolute; /* Posicionamiento absoluto dentro del área de juego */
+    width: 60px; /* Ancho fijo */
+    height: 60px; /* Alto fijo */
+    background: radial-gradient(circle, #ff6b6b, #ee5a52); /* Gradiente radial */
+    border-radius: 50%; /* Hacer circular */
+    cursor: pointer; /* Cambiar cursor al pasar por encima */
+    border: 3px solid rgba(255, 255, 255, 0.5); /* Borde blanco */
+    transition: transform 0.1s ease; /* Transición suave para efectos */
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4); /* Sombra colorida */
+    
+    /* Animación de pulsación */
+    animation: pulse 1s infinite;
+}
+
+/* Efecto hover para objetivos */
+.target:hover {
+    transform: scale(1.1); /* Aumentar tamaño al pasar el mouse */
+}
+
+/* Efecto cuando se hace clic en un objetivo */
+.target:active {
+    transform: scale(0.9); /* Reducir tamaño al hacer clic */
+}
+
+/* Animación de pulsación para los objetivos */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+    }
+    50% {
+        box-shadow: 0 4px 25px rgba(255, 107, 107, 0.8);
+        transform: scale(1.05);
+    }
+    100% {
+        box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+    }
+}
+
+/* Contenedor de controles */
+.controls {
+    margin-top: 1.5rem; /* Margen superior */
+    display: flex; /* Usar flexbox */
+    gap: 1rem; /* Espacio entre botones */
+    justify-content: center; /* Centrar botones */
+    flex-wrap: wrap; /* Permitir envolver elementos */
+}
+
+/* Estilos base para botones */
+.btn {
+    padding: 0.8rem 1.5rem; /* Espaciado interno */
+    border: none; /* Sin borde */
+    border-radius: 10px; /* Bordes redondeados */
+    font-size: 1rem; /* Tamaño de fuente */
+    font-weight: bold; /* Texto en negrita */
+    cursor: pointer; /* Cursor de mano */
+    transition: all 0.3s ease; /* Transición suave */
+    text-transform: uppercase; /* Texto en mayúsculas */
+    letter-spacing: 1px; /* Espaciado entre letras */
+}
+
+/* Botón de inicio */
+.start-btn {
+    background: linear-gradient(45deg, #00c9ff, #92fe9d); /* Gradiente azul-verde */
+    color: white; /* Texto blanco */
+}
+
+/* Botón de reinicio */
+.reset-btn {
+    background: linear-gradient(45deg, #fc466b, #3f5efb); /* Gradiente rosa-azul */
+    color: white; /* Texto blanco */
+}
+
+/* Efectos hover para botones */
+.btn:hover {
+    transform: translateY(-2px); /* Elevar botón */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Añadir sombra */
+}
+
+/* Efecto active para botones */
+.btn:active {
+    transform: translateY(0); /* Volver a posición original */
+}
+
+/* Botón deshabilitado */
+.btn:disabled {
+    opacity: 0.6; /* Reducir opacidad */
+    cursor: not-allowed; /* Cursor de no permitido */
+    transform: none; /* Sin transformación */
+}
+
+/* Pantalla de game over */
+.game-over {
+    position: absolute; /* Posición absoluta */
+    top: 50%; /* Centrar verticalmente */
+    left: 50%; /* Centrar horizontalmente */
+    transform: translate(-50%, -50%); /* Ajuste fino del centrado */
+    background: rgba(0, 0, 0, 0.9); /* Fondo casi negro */
+    padding: 2rem; /* Espaciado interno */
+    border-radius: 15px; /* Bordes redondeados */
+    border: 2px solid #feca57; /* Borde dorado */
+    z-index: 1000; /* Asegurar que esté por encima de otros elementos */
+    display: none; /* Oculto por defecto */
+}
+
+/* Título en pantalla de game over */
+.game-over h2 {
+    color: #feca57; /* Color dorado */
+    margin-bottom: 1rem; /* Margen inferior */
+    font-size: 2rem; /* Tamaño grande */
+}
+
+/* Párrafos en pantalla de game over */
+.game-over p {
+    margin: 0.5rem 0; /* Margen vertical */
+    font-size: 1.2rem; /* Tamaño de fuente */
+}
+
+/* Valores destacados en game over */
+.game-over span {
+    color: #ff6b6b; /* Color rojo */
+    font-weight: bold; /* Negrita */
+}
+
+/* Responsive design para pantallas pequeñas */
+@media (max-width: 600px) {
+    .game-container {
+        padding: 1rem; /* Reducir padding */
+        width: 95%; /* Aumentar ancho */
+    }
+    
+    h1 {
+        font-size: 2rem; /* Reducir tamaño de título */
+    }
+    
+    .game-area {
+        height: 300px; /* Reducir altura del área de juego */
+    }
+    
+    .target {
+        width: 50px; /* Reducir tamaño de objetivos */
+        height: 50px;
+    }
+    
+    .info-panel {
+        flex-direction: column; /* Apilar elementos verticalmente */
+        align-items: center; /* Centrar elementos */
+    }
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Configuración del documento -->
+    <meta charset="UTF-8"> <!-- Define la codificación de caracteres -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Hace que la página sea responsive -->
+    <title>Juego de Reflejos</title>
+    <!-- Enlace al archivo CSS externo -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Contenedor principal del juego -->
+    <div class="game-container">
+        <!-- Título del juego -->
+        <h1>🎯 Juego de Reflejos</h1>
+        
+        <!-- Panel de información y controles -->
+        <div class="info-panel">
+            <!-- Mostrar puntuación actual -->
+            <div class="score">
+                <span>Puntos: </span>
+                <span id="score">0</span>
+            </div>
+            
+            <!-- Mostrar tiempo restante -->
+            <div class="timer">
+                <span>Tiempo: </span>
+                <span id="timer">30</span>s
+            </div>
+            
+            <!-- Mostrar tiempo de reacción -->
+            <div class="reaction-time">
+                <span>Reacción: </span>
+                <span id="reaction">0</span>ms
+            </div>
+        </div>
+        
+        <!-- Área de juego donde aparecen los objetivos -->
+        <div class="game-area" id="gameArea">
+            <!-- Los objetivos se crearán dinámicamente con JavaScript -->
+        </div>
+        
+        <!-- Panel de control con botones -->
+        <div class="controls">
+            <button id="startBtn" class="btn start-btn">Iniciar Juego</button>
+            <button id="resetBtn" class="btn reset-btn">Reiniciar</button>
+        </div>
+        
+        <!-- Pantalla de game over (oculta inicialmente) -->
+        <div class="game-over" id="gameOver">
+            <h2>¡Juego Terminado!</h2>
+            <p>Puntuación final: <span id="finalScore">0</span></p>
+            <p>Mejor tiempo de reacción: <span id="bestTime">0</span>ms</p>
+            <button id="playAgainBtn" class="btn">Jugar de Nuevo</button>
+        </div>
+    </div>
+    
+    <!-- Enlace al archivo JavaScript externo -->
+    <script src="script.js"></script>
+</body>
+</html>
